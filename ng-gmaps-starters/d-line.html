@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>html, body, .angular-google-map, .angular-google-map-container { height: 100%; margin: 0; }</style>
+  </head>
+  <body ng-app="app" ng-controller="MainCtrl">
+    <ui-gmap-google-map control="mapControl" center="{ latitude: 42.4, longitude: -71 }" zoom="12" options="{ mapTypeId: 'custom', disableDefaultUI: true, draggable: false, scrollwheel: false }">
+      <!--ui-gmap-polyline path="thePath"></ui-gmap-polyline-->
+    </ui-gmap-google-map>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.13.1/lodash.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-google-maps/2.3.3/angular-google-maps.min.js"></script>
+    <script src='https://maps.googleapis.com/maps/api/js'></script>
+    <script src="angular-simple-logger.js"></script>
+    <script src='mapstyle-ultralight.js'></script>
+    <script>
+angular.module("app", ["uiGmapgoogle-maps"]).controller("MainCtrl", ["$scope", "$timeout", function($scope, $timeout){
+  $scope.mapControl = {};
+  $timeout(function(){
+    $scope.mapControl.getGMap().mapTypes.set("custom", new google.maps.StyledMapType(mapStyle));
+  });
+
+  new google.maps.DirectionsService().route({
+    origin: { placeId: "ChIJc-FmMh1644kR43B-QclXFAo" },
+    destination: { placeId: "ChIJkzYGCLCD44kRp5HV2rEUqV0" },
+    travelMode: google.maps.DirectionsTravelMode.TRANSIT
+  }, function (response, status) {
+    //google.maps.geometry.encoding.decodePath(response.routes[0].overview_polyline);
+    var directionsDisplay = new google.maps.DirectionsRenderer({
+      markerOptions: { icon: { path: "" } },
+      polylineOptions: { strokeColor: "#109618" }
+    });
+    directionsDisplay.setDirections(response);
+    directionsDisplay.setMap($scope.mapControl.getGMap());
+  });
+}]);
+    </script>
+  </body>
+</html>
