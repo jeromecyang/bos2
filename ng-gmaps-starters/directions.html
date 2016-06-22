@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>html, body, .angular-google-map, .angular-google-map-container { height: 100%; margin: 0; }</style>
+  </head>
+  <body ng-app="app" ng-controller="MainCtrl">
+    <ui-gmap-google-map control="mapControl" center="{ latitude: 42.4, longitude: -71 }" zoom="12" options="{ mapTypeId: 'custom' }">
+    </ui-gmap-google-map>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.13.1/lodash.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-google-maps/2.3.3/angular-google-maps.min.js"></script>
+    <script src='https://maps.googleapis.com/maps/api/js'></script>
+    <script src="angular-simple-logger.js"></script>
+    <script src='mapstyle-ultralight.js'></script>
+    <script>
+angular.module("app", ["uiGmapgoogle-maps"]).controller("MainCtrl", ["$scope", "$timeout", function($scope, $timeout){
+  $scope.mapControl = {};
+  $timeout(function(){
+    $scope.mapControl.getGMap().mapTypes.set("custom", new google.maps.StyledMapType(mapStyle));
+  });
+
+  new google.maps.DirectionsService().route({
+    origin: { placeId: "ChIJFcYCTXd844kRKJzh0ZaYo_o" },
+    waypoints: [{ location: { lat: 42.284905, lng: -71.040127 } }, { location: { lat: 42.283605, lng: -71.037826 } }, { location: { lat: 42.289306, lng: -71.031135 } }, { location: { lat: 42.287659, lng: -71.023182 } }, { location: { lat: 42.281482, lng: -71.018765 } }],
+    destination: { placeId: "ChIJQWWSJGF744kReRX2tdOWcDM" },
+    travelMode: google.maps.DirectionsTravelMode.WALKING
+  }, function (response, status) {
+    var directionsDisplay = new google.maps.DirectionsRenderer({
+      markerOptions: { icon: { path: "" } },
+      polylineOptions: { strokeColor: "#1f77b4" }
+    });
+    directionsDisplay.setDirections(response);
+    directionsDisplay.setMap($scope.mapControl.getGMap());
+  });
+}]);
+    </script>
+  </body>
+</html>
