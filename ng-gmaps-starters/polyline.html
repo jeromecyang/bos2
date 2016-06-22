@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>html, body, .angular-google-map, .angular-google-map-container { height: 100%; margin: 0; }</style>
+  </head>
+  <body ng-app="app" ng-controller="MainCtrl">
+    <ui-gmap-google-map control="mapControl" center="{}" zoom="0" options="{ mapTypeId: 'custom', disableDefaultUI: true, draggable: false, scrollwheel: false }">
+      <ui-gmap-polyline path="thePath"></ui-gmap-polyline>
+    </ui-gmap-google-map>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.13.1/lodash.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-google-maps/2.3.3/angular-google-maps.min.js"></script>
+    <script src='https://maps.googleapis.com/maps/api/js?libraries=geometry'></script>
+    <script src="angular-simple-logger.js"></script>
+    <script src='mapstyle-ultralight.js'></script>
+    <script>
+angular.module("app", ["uiGmapgoogle-maps"]).controller("MainCtrl", ["$scope", "$timeout", function($scope, $timeout){
+  var polyline = "}gnaGxw|pLPA?d@F|GBd@fFxZLNZPfBTh@TNT~AlDtCtGDJbAvBfDlG|DjHzDfHhA~Ar@x@zAtALHl@b@n@Zn@TjA^nBh@tDr@lA\\lCdA|At@jBx@lB`AtAp@z@d@|@p@zBrBhApAb@p@dAnBjA`Cx@rB~BhHPd@d@jB`@bCJpAR~NDlDRhDRdCDdCAdAOjCIxAi@rMe@vJc@lGi@`Dm@|Be@rAeBpDgBxDuAhCcErIgAfC]dAm@fCW|AA@Iz@ElAAj@CxDFxCNdBXpAVrBx@vIN~BDjBLjBj@~DRbA^lAh@pAhAdC`ClEfNnXrJ|QfF|J~ApDz@tCn@zC^`DFj@LhD?nCOnD{@xH_BlNyCvWoCvV}@~HiAnJwAnL_@lDMfCIjFBhDLxCV|Ct@xFpAlFr@~Bx@`Ct@lBbAzB~CbIt@fBpAbDv@vB`B~DfEbKlBnEtBnF|@|Bb@z@HL`@p@r@~@pAxApBpB~@`A`FdFrEpEr@z@bBnBdA`Bl@|Ar@nC\\~BLvCEfDOpBg@pCSx@_@hAe@nAuBpFiGlP{KnZmNp_@eA`C}AlC_BfCeF`IkCnEs@tA{EpLcFlMgBnEyFrN{CrHoBfFqOj`@{@pBmAtCmAdEVGDQ^sADCJ@F[";
+  $scope.mapControl = {};
+  $scope.thePath = google.maps.geometry.encoding.decodePath(polyline);
+  var bounds = new google.maps.LatLngBounds();
+  $scope.thePath.forEach(function(point){
+    bounds.extend(point);
+  });
+
+  $timeout(function(){
+    $scope.mapControl.getGMap().mapTypes.set("custom", new google.maps.StyledMapType(mapStyle));
+    $scope.mapControl.getGMap().fitBounds(bounds);
+  });
+}]);
+    </script>
+  </body>
+</html>
