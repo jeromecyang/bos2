@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"></link>
+  <style>
+section h4 { color: #17becf; }
+  </style>
+</head>
+<body ng-app="ngMap" style="background-color: #333; color: #aaa">
+  <div class="container">
+    <div class="page-header"><h1>Jerome's Sketchbook of June 2016</h1></div>
+    <section>
+      <h4>June 19, 2016</h4>
+      <h3>From River to Bay: Neponset Trail</h3>
+      <p>I spent an afternoon walking from the Butler Station on the MBTA red line (the Mattapan trolley) to the shore near North Quincy. The trail was surprisingly pleasant on the scorching sunny day.</p>
+      <ng-map center="42.281,-71.043" zoom="14" styles='[{"featureType":"all","elementType":"labels.text.fill","stylers":[{"saturation":36},{"color":"#000000"},{"lightness":40}]},{"featureType":"all","elementType":"labels.text.stroke","stylers":[{"visibility":"on"},{"color":"#000000"},{"lightness":16}]},{"featureType":"all","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#000000"},{"lightness":20}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#000000"},{"lightness":17},{"weight":1.2}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":20}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":21}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#000000"},{"lightness":17}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#000000"},{"lightness":29},{"weight":0.2}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":18}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":16}]},{"featureType":"transit","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":19}]},{"featureType":"water","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":17}]}]'>
+        <shape name="polyline" path="{{google.maps.geometry.encoding.decodePath('aj_aGdlvpL_BmC{A{BaBcC{@aBg@uAy@{BeAmBoGoKmDeGi@yAqAyD_@uAyAeGm@wCm@oCg@aBe@oAo@sAeCwEoBmCyAuBc@e@}BaA_@S[[o@{@]gAeAwFW}AKOaAy@GMAM?YHO\\a@Rc@BQAg@G]ISKMQO{AgAo@o@_@aAO_Aa@qA[i@CESd@]f@WZHLsAzCiA`CLMFSNYr@oA~@sBzAyDj@qAz@yArBgD\\q@AC@ETa@AAEAKPCCK@GOWMOOc@m@MWCY@i@Lo@x@oAH[Xu@l@iALi@RiAYGQKMOuAkCi@y@[YeBaAmHiDmKaFk@Oo@EwB?')}}" stroke-color="#17becf"></shape>
+      </ng-map>
+    </section>
+  </div>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <script src="//maps.googleapis.com/maps/api/js?libraries=geometry"></script>
+  <script src="../js/ng-map.min.js"></script>
+</body>
+</html>

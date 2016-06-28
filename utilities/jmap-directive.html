@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <body ng-app="app">
+    <jmap style="width: 800px; height: 400px" id="map"></jmap>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script src="//maps.googleapis.com/maps/api/js?key=AIzaSyC1a5Qt70mQ9GzIX6uSgvLHHHeo6l4uLoo"></script>
+    <script>
+			var map = new google.maps.Map(document.getElementById('map'), {
+			  zoom: 4,
+			  center: {lat: 40, lng: -98}
+			});
+angular.module("app", []).directive("jmap", function(){
+	return {
+		restrict: "AE",
+		link: function(scope, elem){
+			console.log(scope, elem[0])
+			var map = new google.maps.Map(document.getElementById('map'), {
+			  zoom: 4,
+			  center: {lat: 40, lng: -98}
+			});
+		}
+	}
+});
+    </script>
+  </body>
+</html>
