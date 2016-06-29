@@ -4,18 +4,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"></link>
   <style>
+body { background-color: #333; color: #aaa; }
+section { margin: 50px auto; }
 section h4 { color: #17becf; }
   </style>
 </head>
-<body ng-app="app" ng-controller="Ctrl as vm" style="background-color: #333; color: #aaa">
-  <div class="container">
+<body ng-app="app" ng-controller="Ctrl as vm">
+  <!--nav class="navbar navbar-inverse navbar-static-top" ng-include="'navbar.html'"></nav-->
+  <div class="container">  
     <div class="page-header"><h1>Jerome's Sketchbook of June 2016</h1></div>
 
     <section>
       <h4>June 20, 2016</h4>
       <h3>Greenway with Trolley: MBTA Green Line D Branch</h3>
       <p>Unlike other branches of MBTA green line, D line works almost as a commuter rail - it's longer, faster and runs through more suburbs. In summer, the greenest time of New England, D trains push through woods and rocks to bring people out of downtown.</p>
-      <ng-map center="42.333,-71.175" zoom="13" styles="{{vm.mapStyles}}" street-view-control="false" scrollwheel="false">
+      <ng-map center="42.333,-71.175" zoom="13" styles="{{vm.mapStyles}}" street-view-control="false" scrollwheel="false" map-type-control="false">
         <shape name="polyline" path="{{google.maps.geometry.encoding.decodePath('}gnaGxw|pLPA?d@F|GBd@fFxZLNZPfBTh@TNT~AlDtCtGDJbAvBfDlG|DjHzDfHhA~Ar@x@zAtALHl@b@n@Zn@TjA^nBh@tDr@lA\\lCdA|At@jBx@lB`AtAp@z@d@|@p@zBrBhApAb@p@dAnBjA`Cx@rB~BhHPd@d@jB`@bCJpAR~NDlDRhDRdCDdCAdAOjCIxAi@rMe@vJc@lGi@`Dm@|Be@rAeBpDgBxDuAhCcErIgAfC]dAm@fCW|AA@Iz@ElAAj@CxDFxCNdBXpAVrBx@vIN~BDjBLjBj@~DRbA^lAh@pAhAdC`ClEfNnXrJ|QfF|J~ApDz@tCn@zC^`DFj@LhD?nCOnD{@xH_BlNyCvWoCvV}@~HiAnJwAnL_@lDMfCIjFBhDLxCV|Ct@xFpAlFr@~Bx@`Ct@lBbAzB~CbIt@fBpAbDv@vB`B~DfEbKlBnEtBnF|@|Bb@z@HL`@p@r@~@pAxApBpB~@`A`FdFrEpEr@z@bBnBdA`Bl@|Ar@nC\\~BLvCEfDOpBg@pCSx@_@hAe@nAuBpFiGlP{KnZmNp_@eA`C}AlC_BfCeF`IkCnEs@tA{EpLcFlMgBnEyFrN{CrHoBfFqOj`@{@pBmAtCmAdEVGDQ^sADCJ@F[')}}" stroke-color="#17becf"></shape>
       </ng-map>
     </section>
@@ -24,24 +27,25 @@ section h4 { color: #17becf; }
       <h4>June 19, 2016</h4>
       <h3>From River to Bay: Neponset Trail</h3>
       <p>I spent an afternoon walking from the Butler Station on the MBTA red line (the Mattapan trolley) to the shore near North Quincy. The trail was surprisingly pleasant on the scorching sunny day.</p>
-      <ng-map center="42.281,-71.043" zoom="14" styles="{{vm.mapStyles}}" street-view-control="false" scrollwheel="false">
+      <ng-map center="42.281,-71.043" zoom="14" styles="{{vm.mapStyles}}" street-view-control="false" scrollwheel="false" map-type-control="false">
         <shape name="polyline" path="{{google.maps.geometry.encoding.decodePath('aj_aGdlvpL_BmC{A{BaBcC{@aBg@uAy@{BeAmBoGoKmDeGi@yAqAyD_@uAyAeGm@wCm@oCg@aBe@oAo@sAeCwEoBmCyAuBc@e@}BaA_@S[[o@{@]gAeAwFW}AKOaAy@GMAM?YHO\\a@Rc@BQAg@G]ISKMQO{AgAo@o@_@aAO_Aa@qA[i@CESd@]f@WZHLsAzCiA`CLMFSNYr@oA~@sBzAyDj@qAz@yArBgD\\q@AC@ETa@AAEAKPCCK@GOWMOOc@m@MWCY@i@Lo@x@oAH[Xu@l@iALi@RiAYGQKMOuAkCi@y@[YeBaAmHiDmKaFk@Oo@EwB?')}}" stroke-color="#17becf"></shape>
       </ng-map>
     </section>
 
     <section>
       <h4>June 2, 2016</h4>
-      <h3>Anthropologies</h3>
+      <h3>Mapping Anthropologies</h3>
       <p>Anthropologies is a clothes retailer which always creates a delicate and elegant atmosphere. While it doesn't offer any clothing product for a dude like me, it does provide some inspiring interior design ideas. This is why I like it so much.
       Like its sister chain Urban Outfitters, Anthropologie is usually located in either suburban shopping plazas or hipster neighborhoods. As a result, a map of Anthropologie speaks much more than store locations. It's a very good mark for a city's affluenza and gentrified patches.
       </p>
-      <ng-map center="41.532,-72.285" zoom="7" styles="{{vm.mapStyles}}" street-view-control="false" scrollwheel="false">
+      <ng-map center="41.532,-72.285" zoom="7" styles="{{vm.mapStyles}}" street-view-control="false" scrollwheel="false" map-type-control="false">
         <marker ng-repeat="anthro in vm.anthropologies" position="{{[anthro.loc[1],anthro.loc[0]]}}" title="" icon="{path:'M-1,0a1,1 0 1,0 2,0a1,1 0 1,0 -2,0z',scale:4,strokeWeight:0,fillColor:'#17becf',fillOpacity:1}"></marker>
       </ng-map>
     </section>
 
   </div>
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+  <script src="//code.jquery.com/jquery-2.2.4.min.js"></script>
   <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   <script src="//maps.googleapis.com/maps/api/js?libraries=geometry"></script>
   <script src="../js/ng-map.min.js"></script>
