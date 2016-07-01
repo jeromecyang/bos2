@@ -13,6 +13,7 @@ section h4 { text-align: center; }
 section p { margin: 20px auto; }
 .gm-style-iw { color: #333; }
 .highcharts-background { fill: #333; }
+.marker-label { color: #17becf; }
   </style>
 </head>
 <body ng-app="app" ng-controller="Ctrl as vm">
@@ -23,11 +24,15 @@ section p { margin: 20px auto; }
     <section>
       <a id="beaconhill"></a>
       <h4>June 30, 2016</h4>
-      <h3>Beacon Hill, Formerly an Island</h3>
+      <h3>Beacon Hill, Once an Island</h3>
       <p>...</p>
       <highchart id="chart1" config="vm.bhConfig"></highchart>
       <ng-map center="42.356,-71.062" zoom="14" styles="{{vm.mapStyles}}" street-view-control="false" scrollwheel="false" map-type-control="false">
         <shape name="polyline" path="[[42.35187759999999,-71.0551042],[42.3611374,-71.0705278]]" stroke-color="#17becf"></shape>
+        <marker position="42.35187759999999,-71.0551042" icon="{path:'M-1,0a1,1 0 1,0 2,0a1,1 0 1,0 -2,0z',scale:4,strokeWeight:0,fillColor:'#17becf',fillOpacity:1}"></marker>
+        <marker position="42.3611374,-71.0705278" icon="{path:'M-1,0a1,1 0 1,0 2,0a1,1 0 1,0 -2,0z',scale:4,strokeWeight:0,fillColor:'#17becf',fillOpacity:1}"></marker>
+        <custom-marker position="42.35187759999999,-71.0551042"><div class="marker-label">South Station</div></custom-marker>
+        <custom-marker position="42.3611374,-71.0705278"><div class="marker-label">Charles/MGH</div></custom-marker>
       </ng-map>
     </section>
 
@@ -78,14 +83,19 @@ angular.module('app', ['ngMap', 'highcharts-ng']).controller("Ctrl", function($f
   vm.bhConfig = {
     title: null,
     yAxis: {
-      title: {
-        text: 'Elevation (m)'
-      }
+      title: { text: 'Elevation (m)' }
+    },
+    xAxis: {
+      labels: { enabled: false },
+      minorTickLength: 0,
+      tickLength: 0
     },
     tooltip: false,
     series: [{
       data: [3.56, 3.5, 3.54, 5.39, 8.12, 11.06, 14.79, 17.77, 20.77, 23.06, 24.67, 26.41, 28.85, 28.8, 29.07, 31.12, 30.14, 28.11, 27.16, 25.79, 24.04, 20.37, 17.29, 15.48, 14.3, 13.22, 12.67, 12.21, 11.34, 10.87, 10.31, 9.61, 8.81, 8.51, 7.68, 6.86, 6.79, 6.83, 6.55, 6.62, 6.25, 5.75, 5.58, 5.61, 5.32, 5.28, 4.75, 4.24, 4.02, 3.58],
-      color: "#17becf"
+      color: "#17becf",
+      tooltip: { headerFormat: "", pointFormat: "{point.y}" },
+      marker: { enabled: false }
     }]
   };
 
