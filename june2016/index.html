@@ -10,7 +10,7 @@ body { background-color: #333; color: #aaa; font-family: 'Open Sans', sans-serif
 section { margin: 50px auto; }
 section h3 { font-family: 'Raleway', sans-serif; font-size: 40px; color: #17becf; text-align: center; font-weight: 200; }
 section h4 { text-align: center; }
-section p { margin: 30px auto; }
+section p { margin: 20px auto; }
 .gm-style-iw { color: #333; }
   </style>
 </head>
@@ -20,6 +20,7 @@ section p { margin: 30px auto; }
     <div class="page-header"><h1>Jerome's Sketchbook of June 2016</h1></div>
 
     <section>
+      <a id="dline"></a>
       <h4>June 20, 2016</h4>
       <h3>Greenway with Trolley: MBTA Green Line D Branch</h3>
       <p>Unlike other branches of MBTA green line, D line works almost as a commuter rail - it's longer, faster and runs through more suburbs. In summer, the greenest time of New England, D trains push through woods and rocks to bring people out of downtown.</p>
@@ -29,6 +30,7 @@ section p { margin: 30px auto; }
     </section>
 
     <section>
+      <a id="neponset"></a>
       <h4>June 19, 2016</h4>
       <h3>From River to Bay: Neponset Trail</h3>
       <p>I spent an afternoon walking from the Butler Station on the MBTA red line (the Mattapan trolley) to the shore near North Quincy. The trail was surprisingly pleasant on the scorching sunny day.</p>
@@ -38,11 +40,12 @@ section p { margin: 30px auto; }
     </section>
 
     <section>
+      <a id="anthropologies"></a>
       <h4>June 2, 2016</h4>
       <h3>Mapping Anthropologies</h3>
       <p>Anthropologies is a clothes retailer which always creates a delicate and elegant atmosphere. While it doesn't offer any clothing product for a dude like me, it does provide some inspiring interior design ideas. This is why I like it so much.
-      Like its sister chain Urban Outfitters, Anthropologie is usually located in either suburban shopping plazas or hipster neighborhoods. As a result, a map of Anthropologie speaks much more than store locations. It's a very good mark for a city's affluenza and gentrified patches.
-      </p>
+      Like its sister chain Urban Outfitters, Anthropologie is usually located in either suburban shopping plazas or hipster neighborhoods. As a result, a map of Anthropologie speaks much more than store locations. It's a very good mark for a city's affluenza and gentrified patches.</p>
+      <p>Please click points in the map to see more details (I'm planning to create more visualizations using those details).</p>
       <ng-map center="41.532,-72.285" zoom="7" styles="{{vm.mapStyles}}" street-view-control="false" scrollwheel="false" map-type-control="false">
         <marker ng-repeat="anthro in vm.anthropologies" position="{{[anthro.loc[1],anthro.loc[0]]}}" icon="{path:'M-1,0a1,1 0 1,0 2,0a1,1 0 1,0 -2,0z',scale:4,strokeWeight:0,fillColor:'#17becf',fillOpacity:1}" on-click="vm.showInfoWindow(anthro, $index, 'anthro')"></marker>
       </ng-map>
