@@ -1,0 +1,56 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+  <link href="//fonts.googleapis.com/css?family=Open+Sans|Raleway:200" rel="stylesheet">
+  <style>
+body { background-color: #333; color: #aaa; font-family: 'Open Sans', sans-serif; }
+.page-header { text-align: center; }
+section { margin: 50px auto; }
+section h3 { font-family: 'Raleway', sans-serif; font-size: 40px; color: #17becf; text-align: center; font-weight: 200; }
+section h4 { text-align: center; }
+section p { margin: 20px auto; }
+  </style>
+</head>
+<body ng-app="app" ng-controller="Ctrl as vm">
+  <!--nav class="navbar navbar-inverse navbar-static-top" ng-include="'navbar.html'"></nav-->
+  <div class="container">  
+    <div class="page-header"><h1>July 2016</h1></div>
+
+    <section>
+      <a id="nextmbta"></a>
+      <h4>July 1, 2016</h4>
+      <h3>Next MBTA Subway?</h3>
+      <p>...</p>
+      <ng-map style="height: 600px" center="42.356,-71.062" zoom="12" styles="{{vm.mapStyles}}" street-view-control="false" scrollwheel="false" map-type-control="false">
+        <shape name="polyline" stroke-color="#fd8a03" path="{{google.maps.geometry.encoding.decodePath('gl_bGjaxpLBc@r@FnD^vFl@rCd@`HnBxLlDhIfCbD~@rC|@vLpDpKbDtCt@pEx@fFd@fBLfFDhCArFEdPLfLFvAC~FFbUJnD@xB?bABtFLt@DjILbKHfABnC@rTB`EChBGzAGlESdCG`F?vHInBItAAdCCdB?bG?bDHvEH`DKtFEjACtAYf@Sb@OzAy@jNgLfBoBzA}BnAoBpB_EjAgD|AsEd@cBxCkGpGmKl[aZxDqDfI{GbCuCh@g@b@W`@Sr@IlBI~I]zGBT?vC?N@VN`EjDvAxBvDpEB@t@t@hAtAlEhEt@r@VJj@Nh@@rAFVBxDd@|B^XJRLz@`AxBvB^FvB\\NP`HrRJd@BZQbEEtHA`L@tHBnDRjDJh@Jd@Xp@lAdB`ExFnItKdBvBbD|DlDnEt@fAr@dAn@|@tZda@lEzFvStWnBxB~@z@~ArAtG|EbAn@n@XfAj@zAr@xAn@lBh@pC|@hAX~EtAf@LbHrCvAp@`@Vx@h@dD|B|AhAvC`CfDrCnA|@`EfCdD`BhAh@tBz@hA^jEhA`GfBzFpBvDfBxC`Bp@^ZPlIvEv@h@fDhBxF|C|EpCvErCpFjDvBtA|@n@~DbChAr@h@qABtARNJn@GCGCWFG?k@[O?A?')}}"></shape>
+        <shape name="polyline" stroke-color="#2f5da6" path="{{google.maps.geometry.encoding.decodePath('oupaGvhvpLf@PBKTeBjAyDZc@PMx@YzA{Al@Y\\[Vi@RiAXqCHyB@wCqBo[Y{CKy@_@sAOeAo@_Ose@kc@sNcM_Aw@gDmCwBqCyBuCaB_C_BmBQWEQGo@C}NEu@WiAa@_AIOuE{FsAaBsBeCqAoAaCaBiAiAqAgB_BcDiBoCiEoFm@cAg@oAoCcKi@oBY{AQoB@uMAgAGy@e@kDm@wBe@gAuCkEqRmYs@kBEOiFqTs@eDoAoFsA}FyAsGmAwFWeAO[c@mAaBwD}AmCsBuC}A}A}AmA_BiAoBiAkIyEoHkEeMkHsBkAqCeAaCc@eCOwBDyOpAuKz@yJz@cCXyETyBBoCEcAGuC]oCm@eBi@oCiAk@I')}}"></shape>
+        <shape name="polyline" stroke-color="#fa2d27" path="{{google.maps.geometry.encoding.decodePath('a}waGxnfqLp@gDRc@XYr@[|B{@xAQ^IpDkAVKAw@oCoAGyNKuBUeCWu@g@}@s@k@w@WcAWSa@a@oC[gFn@_ZXcJJuERwHPkE\\_G\\mDn@}DZaBNy@\\iAt@qB`AwBl@cAl@m@b@Yn@QrBEnVkApMTtm@hDlPx@|@CbB_@fBk@n@q@fAeCn@m@ZIl@@fBFlB\\tC^^?HCLKVw@|CcOdHoIfDoEXc@b@oAjEcPrBeGfAsCvMqVl@sAjByD`DoGd@cAj@cBJkAX{JXeHVmJr@kR~@q^HsB@UNgDr@gJv@eVNwF\\{Mf@kNX{GVmHLyAh@yB\\}@vJaOrCwDj@iAzCuHbAkChBwEpDcJfJcRj@cAr@wB|AwE`E{Np@w@l@UhASh@Eb@?nAPl@Px@b@he@h[pCCzlAk@f@Ah@TxF|BpBp@l@TXAz@Yl@]l@e@rCyDp@iA|A}BfCoEjCsDtAsAdAs@fAe@|@YpCc@bAKp@M`BUrCKhDKnGMdEAxHY|BD~@JjB^hF~A`OrEtItBlXlEpB`@tANvAHx@AjBIx@M~@U~@_@pAo@xCwBzHuI|DwEbDqDpLkNvIcKjMeOz@eAvDiEfE}EhFgGnDwD~IkK~DcF|BkCzAgBPUhAsATWvAoAhCiBhAk@n@QhGgBbCu@`By@jB{AjCgCz@aAtByBxH}HxP}QhI{IzHgJdAwA|AeBl@s@pBqBv@k@^[zBqBrF_GlPyQfGwGtFaGpEwEjFyFd@i@nNyOlB_Bz@i@zBeA`@UvA}@l@[~As@jDcBvBcAlA]ZKpBY|@CfADtD`@rKtAnCf@fMtBlC`@xY|EnCd@vBX`DXbBTlBTGdAk@zAnBnEJRy@x@n@rAl@tAQTi@j@OBIJSV[d@KRG@E@SLwAxAWP}D|DcEdEeIfIgLnLq@r@QVk@nAgBpE[jA[dBi@vCzApApBnB|@x@')}}"></shape>
+        <shape name="polyline" stroke-color="#fa2d27" path="{{google.maps.geometry.encoding.decodePath('mshaGvetpLOBcBNIAACSb@EHTRBf@DnBdCQvCMlBKdCCtGI|BEjCMbDDvANlARtGfBnDjAnCbAdCz@xC|@fBf@xAZ|@J~@LP?~KbBtE`AnB^bCTbADtAC|CBRDpAv@t@z@x@nBR|@VpBDlA@dDBdFDtAPjBTlAn@rDp@jEt@bCv@~A~@xA|A~A~AjAxBfAt@PzANbEIhM_Che@{FtF{Aj@An@LfDcAlBoBp@c@vAu@vC{ApFeDtHmEfAm@vAq@jAa@j@U|GeBxCw@fAIlAHx@Tj@Xn@b@l@r@rBjD~GlL`C`EvBdEJZ^fANp@f@tBXrATvBFhA@bB?t@BxJD~Ed@lIJ~Bh@pJVrCb@~CfCjPvFh^^tCFdBA~AObCg@jDg@|DIbBDrCFrBDl@JVN\\\\|DHnF')}}"></shape>
+        <shape name="polyline" stroke-color="#008150" path="{{google.maps.geometry.encoding.decodePath('oplaGhwjqLJi@Dw@@}@KmBIgEAqDJ}KHgHRkDb@{Dn@mD^eBx@eCjB_Fn@kBLg@ReALcBCSQk@CAa@k@a@]k@a@oAi@sAs@gAw@}@_Aw@gA}@yASa@[s@a@kAm@qCOoBCcBBk@@gDKgCC]O}Aa@oBy@_CmA{B}@iAmAcAcC{AuA{@qEqC}@e@}BqAyAk@q@Sc@IiCU}Ae@[K_@SQYUe@UmAE_BD{@n@_DhAyEPsA@cAGoAYyA{@_CqE}LeBsEq@iBOk@MkA?wARuE@qBGyA]yBe@{AiAeCkAuBy@iAa@q@Ai@dAoQ`AsOB[HwB\\mFRiDt@{LTcExAkU~@_ObA}PfBuZn@cMCsJM{F@cDJ_@nCmDVq@Jg@OgSByBD{@f@oKAc@mKom@FAG@]sBkJqh@wAqIe@cD_@gFXaLC_@IYIKyA]_Ac@i@SOQs@[{B_AkAe@]Co@]aA_A{@cAcC_Dm@m@qAwAuB_Cu@q@aFcDwAoAoFwEUOUAwENqADa@Ho@HOHi@Xw@t@yAbBmIjHe@b@_C~BGPCb@H`AlBzFf@|ALl@HdAE^]~@_@`CWvBi@jCi@`Be@lAeCbG}@lCuChHiJbUk@jB]`B[bDqAzBk@Pe@fB')}}"></shape>
+        <shape name="polyline" stroke-color="#008150" path="{{google.maps.geometry.encoding.decodePath('ulnaG`c}pLF{@VIFMtAe@NEDn@Bp@Hn@BZh@xCL^lApGxAnIzDjTf@bD`ApF~@pFhAjGjF|YpG~]xC~OpA`HlA~I~@xFn@hDdApE|@fEV~A\\lCLxATdEDhB?rC?pHH`B`@tCzAbIn@`EpBxMn@nEjAtJdCfS|@vGpAzI')}}"></shape>
+        <shape name="polyline" stroke-color="#008150" path="{{google.maps.geometry.encoding.decodePath('ulnaG`c}pLF{@VIFMtAe@NEE[Ko@EQAiCt@ABzBDxEhFl[VXPFx@HbATRJNT|C~GlBhErArC|MtVdAbBxAfBn@p@z@p@l@b@pAj@~Bt@hAXlB\\tCr@jDtAjD~AvDjBXPdAj@rAhAlAjAhApAhAjBfAtBz@pBt@rBpBhGd@vA\\jBVnBDzATxPF`CV~CN~C?zAQjDa@lIy@~QWxDIdA[lB]dB]jAe@rAeD`H}BrEcErIgAfC]dAg@tBOx@Ov@Iz@E`BEbB@bEJvBVdBR|@XjCv@~IFnBJpBTzBd@tCj@tBjApCpKtSfGxLpNpX`CtE~@xBZ~@x@bDd@lCTdCLjC@t@ElE]rEeDvYeF|c@gAxJ}@`Iy@xGeBfOMfCGzCAtCBbBLxCV|CZfC^bCZtAdA|DjAnDTn@dB`EbEhKbChG|DtJ`GnNlD`Jh@bAd@v@nBdCtDvDh@b@bIhIhBhBdBpBfAxAv@`Bn@hBl@`DPlBDjCIbD]nCi@`Cw@zBcCpGwVbq@}Lj\\wArCsAtB_AvAgH`LsBxD_H|PeEfKaCdG}E|LmDxIq@bBSp@cA`CsDlJ_HfQwB`FmAdEVGb@_BBGFAF@F[')}}"></shape>
+        <shape name="polyline" stroke-color="#008150" path="{{google.maps.geometry.encoding.decodePath('emnaGrlypLG@N`AX`BXbAHPPHlBg@N@hHjAv@Z^XVZxE|G^h@jPjTpDrEfAzAVb@d@bANd@n@xB~AfFlCzIdB`Gr@pC`BzF~A`FXhAjCdJhDzLj@dBx@jCx@xC`AdEnCtJj@jBp@nBZr@Xj@l@fBLp@Dd@?lBFdI@dBD^BTPz@h@rAL^n@nAp@jAb@x@V^`@EjI_CxBw@lBw@^e@~A?')}}"></shape>
+        <shape name="polyline" stroke-color="#9467bd" path="{{google.maps.geometry.encoding.decodePath('aodbGrs_pLxg@`uAp@`NkCtIuFtEyRrGiD~Bs@hGrNnn@dAxJRfNqDjt@gKvpB_@xNjAdPbDtItJ~IvEvBhIhAnDYtZ}F`OsAjCk@|e@XbGY~BFbEdA|CvBfKhRjBr@pAQpGgFrMyCrNaGvVkZ`LeQbHcS~@YjBFvV~P`LbH~TbLbm@bt@hf@tcAnXhl@zJjZzr@ln@rRjSfAdAfBXfBM`B_Ajf@{X|@oB`BaBpBw@bEQdD?pY]`HgD`EoAfBQdCH~Bp@~B`BrTlNh_@vTtNdIVbALfBMjDqA~MKhCPlBjA|Dbu@zbA`QnY|G~LpCvBvBbAbIhCtIXtd@qJdB?jBFtNrGtEjApF|AvDq@|EoBpA?pEr@bFoB`OdIhMdB|~Cbt@hEr@`dAr@|JjD`SdTtLdXdAlLiChMg@tJZlKlGjMlKfQdGrJbJxJbi@~h@bg@~XbHbHpDbD')}}"></shape>
+        <shape name="polyline" stroke-color="#008150" path="{{google.maps.geometry.encoding.decodePath('')}}"></shape>
+        <shape name="polyline" stroke-color="#008150" path="{{google.maps.geometry.encoding.decodePath('')}}"></shape>
+      </ng-map>
+    </section>
+
+  </div>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+  <script src="//code.jquery.com/jquery-2.2.4.min.js"></script>
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <script src="//maps.googleapis.com/maps/api/js?libraries=geometry"></script>
+  <script src="//rawgit.com/allenhwkim/angularjs-google-maps/master/build/scripts/ng-map.js"></script>
+  <script>
+angular.module('app', ['ngMap']).controller("Ctrl", function(){
+  var vm = this;
+
+  vm.mapStyles = [{"featureType":"all","elementType":"labels.text.fill","stylers":[{"saturation":36},{"color":"#000000"},{"lightness":40}]},{"featureType":"all","elementType":"labels.text.stroke","stylers":[{"visibility":"on"},{"color":"#000000"},{"lightness":16}]},{"featureType":"all","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#000000"},{"lightness":20}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#000000"},{"lightness":17},{"weight":1.2}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":20}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":21}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#000000"},{"lightness":17}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#000000"},{"lightness":29},{"weight":0.2}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":18}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":16}]},{"featureType":"transit","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":19}]},{"featureType":"water","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":17}]}];
+});
+  </script>
+</body>
+</html>
