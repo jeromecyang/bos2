@@ -1,0 +1,6 @@
+body { background-color: #333; color: #aaa; font-family: 'Open Sans', sans-serif; }
+.page-header { text-align: center; }
+section { margin: 50px auto; }
+section h3 { font-family: 'Raleway', sans-serif; font-size: 40px; color: #17becf; text-align: center; font-weight: 200; }
+section h4 { text-align: center; }
+section p { margin: 20px auto; }
