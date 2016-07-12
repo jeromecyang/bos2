@@ -1,4 +1,4 @@
-body { background-color: #333; color: #aaa; font-family: 'Open Sans', sans-serif; }
+body { background-color: #333; color: #aaa; font-family: 'Open Sans', sans-serif; padding-top: 70px; }
 .page-header { text-align: center; }
 section { margin: 50px auto; }
 section h3 { font-family: 'Raleway', sans-serif; font-size: 40px; color: #17becf; text-align: center; font-weight: 200; }
