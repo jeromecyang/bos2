@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <body ng-app="app" ng-controller="ctrl">
+    <h1 style="font-family: Arial; text-align: center">Countries Ordered by Extent of Urbanization (2015 World Bank)</h1>
+    <p style="font-family: Arial; color: #aaa; text-align: center">JEROME YANG | January 3, 2017</p>
+    <svg width="960" height="3000" style="display: block; margin: auto">
+      <g transform="translate(480)">
+        <line ng-repeat="tick in ticks" ng-attr-x1="{{tick|scaleNumber}}" y1="0" ng-attr-x2="{{tick|scaleNumber}}" y2="3000" stroke="#aaa" stroke-width="0.5"></line>
+        <text ng-repeat="tick in ticks" ng-if="tick < 0" ng-attr-x="{{(tick|scaleNumber)-2}}" y="10" fill="#aaa" style="font-size: 10px; font-family: Arial; text-anchor: end">{{-tick|number}}k</text>
+        <text ng-repeat="tick in ticks" ng-if="tick > 0" ng-attr-x="{{(tick|scaleNumber)+2}}" y="10" fill="#aaa" style="font-size: 10px; font-family: Arial">{{tick|number}}k</text>
+      </g>
+      <g ng-repeat="d in data" ng-attr-transform="translate(480,{{14*$index+20}})">
+        <rect ng-attr-transform="translate(-{{d.ruralDispValue|scaleNumber}},2)" ng-attr-width="{{d.ruralDispValue|scaleNumber}}" height="10" fill="#ccc" ng-mousemove="onMousemove($event)" ng-mouseenter="onMouseenter(d)" ng-mouseleave="onMouseleave()"></rect>
+        <rect transform="translate(0,2)" ng-attr-width="{{d.urbanDispValue|scaleNumber}}" height="10" ng-attr-fill="{{d.urban_pop_pct_2015|getColor}}" ng-mousemove="onMousemove($event)" ng-mouseenter="onMouseenter(d)" ng-mouseleave="onMouseleave()"></rect>
+        <text ng-attr-transform="translate({{-2-(d.ruralDispValue|scaleNumber)}},10)" style="font-size: 10px; font-family: Arial; text-anchor: end">{{d.country}}</text>
+        <text ng-attr-transform="translate({{2+(d.urbanDispValue|scaleNumber)}},10)" style="font-size: 10px; font-family: Arial">{{d.urban_pop_pct_2015}}%</text>
+      </g>
+      <g ng-show="tooltip" ng-attr-transform="translate({{tooltipX}}, {{tooltipY}})">
+        <foreignObject width="125" height="39" style="font-size: 10px; font-family: Arial; color: #fff; background-color: #333; padding: 3px; border-radius: 3px">
+          <div>{{tooltip.country}}</div>
+          <div>Urban: {{tooltip.urbanDispValue|number:0}}k</div>
+          <div>Rural: {{tooltip.ruralDispValue|number:0}}k</div>
+        </foreignObject>
+      </g>
+
+    </svg>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
+    <script>
+angular.module("app", []).controller("ctrl", function($scope, $http){
+  $http.get("data.json").then(function(response){
+    $scope.data = response.data.sort(function(a, b){ return b.urban_pop_pct_2015 - a.urban_pop_pct_2015 });
+    $scope.data.forEach(function(d){
+      d.urbanDispValue = d.urban_pop_2015;
+      d.ruralDispValue = d.urban_pop_2015*(100-d.urban_pop_pct_2015)/d.urban_pop_pct_2015;
+    });
+    $scope.ticks = [-500000, -100000, -10000, -1000, 0, 1000, 10000, 100000, 500000];
+    $scope.tooltipX = 0;
+    $scope.tooltipY = 0;
+    $scope.onMousemove = function(event){
+      $scope.tooltipX = event.offsetX + 10;
+      $scope.tooltipY = event.offsetY - 49;
+    };
+    $scope.onMouseenter = function(d){
+      $scope.tooltip = d;
+    };
+    $scope.onMouseleave = function(){
+      $scope.tooltip = undefined;
+    };
+  });
+}).filter("scaleNumber", function(){
+  return function(n){
+    return (n < 0 ? -1 : 1) * .5 * Math.pow(Math.abs(n), .5);
+  };
+}).filter("getColor", function(){
+  return function(n){
+    var colors = ["#ffa500", "#ed8d12", "#db7625", "#c95e37", "#b64749", "#a42f5b", "#92186e", "#800080"];
+    var colorId = Math.floor(Math.min(n/10 - 2, 7));
+    return colors[colorId] || colors[0];
+  };
+});
+    </script>
+  </body>
+</html>
