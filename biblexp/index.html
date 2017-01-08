@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+.book {
+  display: flex;
+  font-size: 11px;
+  font-family: Arial;
+}
+.book-title {
+  min-width: 100px;
+  text-align: right;
+  padding-right: 4px;
+}
+.chapter-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+.chapter {
+  width: 11px;
+  height: 11px;
+  margin: 2px 1px;
+  font-size: 8px;
+  color: #fff;
+  text-align: center;
+  line-height: 11px;
+  cursor: pointer;
+}
+    </style>
+  </head>
+  <body ng-app="app" ng-controller="ctrl">
+    <div class="book" ng-repeat="book in books">
+      <div class="book-title">{{book.book}}</div>
+      <div class="chapter-container">
+        <div class="chapter" ng-repeat="i in getArray(book.chapters) track by $index" ng-style="{ 'background-color': types[book.type] }">{{$index+1}}</div>
+      </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
+    <script>
+angular.module("app", []).controller("ctrl", function($scope, $http){
+	$http.get("bible-chapters.json").then(function(response){
+    $scope.books = response.data;
+    $scope.getArray = function(n){ return new Array(n) }
+    $scope.types = {
+      "law": "#aec7e8",
+      "narrative": "#ffbb78",
+      "wisdom": "#98df8a",
+      "major prophets": "#ff9896",
+      "minor prophets": "#c5b0d5",
+      "gospels": "#c49c94",
+      "apostolic narrative": "#f7b6d2",
+      "pauline epistles": "#c7c7c7",
+      "general epistles": "#dbdb8d",
+      "apocalyptic": "#9edae5"
+    };
+  });
+});
+    </script>
+  </body>
+</html>
