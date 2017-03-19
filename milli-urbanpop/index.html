@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+  <body ng-app="app" ng-controller="ctrl">
+    <h1 class="intro">People in 1M+ Urban Areas</h1>
+    <p class="intro">
+      <p class="intro">As of 2015, 100 cities in China have an urban population more than 1 million. This sounds astonishing, but these 100 cities only contain 25% of the country's total population. While in some other countries, a city with a few million people may accommodate more than a half of a country's population. The objective of this visualization is to list cities around the world where the urban population is greater than 1 million, and show their sizes relative to the country's population.</p>
+      <p class="intro">Data were retrieved from wikipedia's <a href="https://en.wikipedia.org/wiki/List_of_countries_by_population_(United_Nations)" target="_blank">List of countries by population (United Nations)</a> and <a href="https://en.wikipedia.org/wiki/List_of_urban_areas_by_population" target="_blank">List of urban areas by population</a> pages. The original data sources of these two tables are United Nation's World Population Prospects 2015 and Demographia's World Urban Areas 2015, respectively.</p>
+    </p>
+    <p>
+      <div class="shadow" ng-show="expanded" ng-style="shadowStyle"></div>
+      <div ng-repeat="country in countries" class="country-box">
+        <div class="country" ng-style="style(country.pop)" ng-mouseenter="adjustShadow($event, country.pop)" ng-mouseleave="$parent.expanded = false">
+          <div ng-repeat="city in country.cities" class="city" ng-style="style(city.population, true)" tooltips tooltip-template="{{city.city}}: {{city.population|number}} ({{100 * city.population / country.pop|number}}%)" tooltip-size="small" tooltip-smart="true">{{city.city}}</div>
+        </div>
+        <div class="country-label">{{country.country}}: {{Math.round(100 * (1 - country.excpop / country.pop))}}%</div>
+      </div>
+    </p>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.3/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/4.2.0/papaparse.min.js"></script>
+    <script src="https://rawgit.com/720kb/angular-tooltips/ab7ee4d3/dist/angular-tooltips.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300" rel="stylesheet">
+    <link href="https://rawgit.com/720kb/angular-tooltips/ab7ee4d3/dist/angular-tooltips.min.css" rel="stylesheet">
+    <script>
+angular.module("app", ["720kb.tooltips"]).controller("ctrl", function($scope){
+  $scope.Math = Math;
+  var size = 20;
+  var maxWidth = 1200;
+  var unitPop = 1000000;
+  var maxWidthUnits = maxWidth / size;
+  var defaultColor = "#DDDDBB";
+  $scope.expanded = false;
+
+  $scope.style = function(pop, isColored){
+    if (pop > maxWidthUnits * unitPop) {
+      return {
+        width: maxWidth + "px",
+        //height: size * pop / (unitPop * maxWidthUnits) + "px",
+        "background-color": isColored ? getBackgroundColor(pop) : defaultColor
+      };
+    } else {
+      return {
+        width: size * pop / unitPop + "px",
+        height: size + "px",
+        "background-color": isColored ? getBackgroundColor(pop) : defaultColor
+      };
+    };
+  };
+
+  $scope.adjustShadow = function(event, pop){
+    if (pop > maxWidthUnits * unitPop) {
+      var height = size * pop / (unitPop * maxWidthUnits);
+      $scope.shadowStyle = {
+        width: maxWidth + "px",
+        height: height + "px",
+        top: event.target.offsetTop + event.target.getBoundingClientRect().height - height + "px"
+      };
+      $scope.expanded = true;
+    };
+  };
+
+  Papa.parse("urban_pop.csv", {
+    download: true,
+    header: true,
+    dynamicTyping: true,
+    complete: function(results){
+      var data = results.data;
+      data.sort(function(a, b){
+        return a.country !== b.country ? b.countrypop - a.countrypop : b.population - a.population;
+      });
+      var countries = [];
+      var bucket = [];
+      data.forEach(function(d, i){
+        bucket.push(d);
+        if (data[i+1] && d.country !== data[i+1].country || i === data.length - 1) {
+          countries.push({
+            country: d.country,
+            pop: d.countrypop,
+            cities: bucket,
+            excpop: d.countrypop - bucket.map(function(city){ return city.population }).reduce(function(a, b) { return a + b }, 0)
+          });
+          bucket = [];
+        };
+      });
+      $scope.countries = countries;
+      $scope.$apply();
+    }
+  });
+
+  function getBackgroundColor(pop){
+    if (pop > 10000000) {
+      return "#4B2C34";
+    } else if (pop > 5000000) {
+      return "#447878";
+    } else {
+      return "#779977";
+    };
+  };
+});
+    </script>
+    <style>
+body {
+  font-family: Arial;
+}
+h1 {
+  font-size: 60px;
+}
+.intro {
+  font-family: 'Open Sans', sans-serif;
+}
+.country-box {
+  display: flex;
+  align-items: flex-end;
+}
+.country-label {
+  color: #666;
+  font-size: 12px;
+  margin-left: 4px;
+  font-weight: bold;
+}
+.country {
+  margin: 4px 0; display: flex; flex-wrap: wrap; align-content: flex-end; align-items: flex-end; flex-shrink: 0;
+}
+.city {
+  font-size: 12px; border-bottom: 1px solid #ccc; border-right: 1px solid #ccc; background-color: #666; box-sizing: border-box; color: #ccc; padding-left: 1px; white-space: nowrap; overflow: hidden;
+}
+.shadow {
+  position: absolute; top: 0; width: 1200px; background-color: rgba(221,221,187,.5); pointer-events: none; border: 6px solid #aaaa88; box-sizing: border-box;
+}
+    </style>
+  </body>
+</html>
