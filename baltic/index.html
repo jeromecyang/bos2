@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+  <body ng-app="app" ng-controller="ctrl">
+    <div id="map">
+      <ng-map center="58.75,25" zoom="9" disable-default-u-i="true" scrollwheel="false" styles='[{"featureType": "all","elementType":"all","stylers":[{"saturation":-75},{"gamma":0.85}]},{"featureType":"all","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"administrative","elementType":"labels","stylers":[{"visibility":"on"}]}]'>
+      </ng-map>
+    </div>
+
+    <svg>
+      <path class="trip" ng-repeat="trip in trips" ng-attr-d="{{trip}}"></path>
+      <g ng-repeat="stop in stops" ng-attr-transform="translate({{stop.x}},{{stop.y}})">
+        <circle class="stop" r="16"></circle>
+        <text class="placename" transform="translate(-20,0)">{{stop.name}}</text>
+      </g>
+    </svg>
+
+    <div id="canvas" ng-click="click($event)">
+      <div class="header">
+        <div>Baltic</div>
+        <div>States</div>
+        <div>Trip</div>
+      </div>
+      <div class="subheader">May 27 - June 1, 2017</div>
+
+      <div class="info">
+        <div class="info-head">Budget</div>
+        <div>$850</div>
+        <div class="info-head">Timeline</div>
+          <div>5/27</div>
+          <div>5/28</div>
+          <div>5/29</div>
+          <div>5/30</div>
+          <div>5/31</div>
+          <div>6/1</div>
+        <div class="info-head">About</div>
+        <div>
+          <div>
+            <div class="country-head">
+              <span class="flag-icon flag-icon-fi"></span> Suomi <span style="font-size: 28px">(Finland)</span>
+            </div>
+            <div class="country-info">
+              <div><i class="fa fa-user" aria-hidden="true"></i> 5,488,543</div>
+              <div><i class="fa fa-flag" aria-hidden="true"></i> Helsinki</div>
+              <div><i class="fa fa-cc-visa" aria-hidden="true"></i> Schengen</div>
+            </div>
+            <div class="country-info">
+              <div><i class="fa fa-money" aria-hidden="true"></i> Euro</div>
+              <div><i class="fa fa-comment" aria-hidden="true"></i> Finnish, Swedish</div>
+              <div><i class="fa fa-plug" aria-hidden="true"></i> C,F 230V/50Hz</div>
+            </div>
+          </div>
+          <div>
+            <div class="country-head">
+              <span class="flag-icon flag-icon-ee"></span> Eesti <span style="font-size: 28px">(Estonia)</span>
+            </div>
+            <div class="country-info">
+              <div><i class="fa fa-user" aria-hidden="true"></i> 1,315,635</div>
+              <div><i class="fa fa-flag" aria-hidden="true"></i> Tallinn</div>
+              <div><i class="fa fa-cc-visa" aria-hidden="true"></i> Schengen</div>
+            </div>
+            <div class="country-info">
+              <div><i class="fa fa-money" aria-hidden="true"></i> Euro</div>
+              <div><i class="fa fa-comment" aria-hidden="true"></i> Estonian</div>
+              <div><i class="fa fa-plug" aria-hidden="true"></i> C,F 230V/50Hz</div>
+            </div>
+          </div>
+          <div>
+            <div class="country-head">
+              <span class="flag-icon flag-icon-lv"></span> Latvija <span style="font-size: 28px">(Latvia)</span>
+            </div>
+            <div class="country-info">
+              <div><i class="fa fa-user" aria-hidden="true"></i> 1,953,200</div>
+              <div><i class="fa fa-flag" aria-hidden="true"></i> Riga</div>
+              <div><i class="fa fa-cc-visa" aria-hidden="true"></i> Schengen</div>
+            </div>
+            <div class="country-info">
+              <div><i class="fa fa-money" aria-hidden="true"></i> Euro</div>
+              <div><i class="fa fa-comment" aria-hidden="true"></i> Latvian</div>
+              <div><i class="fa fa-plug" aria-hidden="true"></i> C,F 230V/50Hz</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="day" style="left: 150px; top: 2300px">
+        <div class="title">Day 1</div>
+        <div class="summary">Boston &rarr; Oslo &rarr; Riga</div>
+        <div><i class="fa fa-plane" aria-hidden="true"></i> Norwegian 7142 BOS-OSL</div>
+        <div><i class="fa fa-plane" aria-hidden="true"></i> Air Baltic 160 OSL-RIX arr. 5:20pm</div>
+        <div><i class="fa fa-glass" aria-hidden="true"></i> <a href="https://www.prioritypass.com/en/loungesearch?entity=4b3d60cd-d0fc-40ea-b0ba-05ceeb2bcf67" target="_blank">Primeclass Riga Business Lounge</a> @ RIX</div>
+        <div><i class="fa fa-bus" aria-hidden="true"></i> Riga #22 Riga Airport - City Center</div>
+        <div><i class="fa fa-eur" aria-hidden="true"></i> Tavex @ Origo</div>
+        <div><i class="fa fa-phone" aria-hidden="true"></i> LMT @ Origo</div>
+        <div><i class="fa fa-shopping-cart" aria-hidden="true"></i> mini-Rimi @ Origo</div>
+        <div><i class="fa fa-bed" aria-hidden="true"></i> <a href="http://sghostel.eu/" target="_blank">Seagulls Garret Hostel</a></div>
+      </div>
+      <div class="day" style="left: 1200px; top: 2450px">
+        <div class="title">Day 2</div>
+        <div class="summary">Riga &rarr; Sigulda &rarr; C&emacr;sis</div>
+        <div><i class="fa fa-camera" aria-hidden="true"></i> <a href="http://okupacijasmuzejs.lv/" target="_blank">Museum of the Occupation of Latvia</a></div>
+        <div><i class="fa fa-cutlery" aria-hidden="true"></i> Central Market</div>
+        <div><i class="fa fa-train" aria-hidden="true"></i> #844 Riga-Sigulda 2-3:13pm &euro;1.9</div>
+        <div><i class="fa fa-camera" aria-hidden="true"></i> <a href="http://www.turaida-muzejs.lv/" target="_blank">Turaida Castle</a> &euro;5</div>
+        <div><i class="fa fa-bus" aria-hidden="true"></i> CATA #12 Turaida-Sigulda &euro;0.5</div>
+        <div><i class="fa fa-train" aria-hidden="true"></i> #876 Sigulda-C&emacr;sis 7-7:32pm &euro;2</div>
+        <div><i class="fa fa-cutlery" aria-hidden="true"></i> <a href="http://cafe2locals.lv" target="_blank">Cafe 2Locals</a></div>
+        <div><i class="fa fa-bed" aria-hidden="true"></i> <a href="https://www.booking.com/hotel/lv/katrina.html" target="_blank">Hotel Katrina</a></div>
+      </div>
+      <div class="day" style="left: 1400px; top: 2100px">
+        <div class="title">Day 3</div>
+        <div class="summary">C&emacr;sis &rarr; Tartu</div>
+        <div><i class="fa fa-camera" aria-hidden="true"></i> <a href="http://cesupils.lv/" target="_blank">C&emacr;sis Castle</a> &euro;4</div>
+        <div><i class="fa fa-shopping-cart" aria-hidden="true"></i> Maxima X</div>
+        <div><i class="fa fa-train" aria-hidden="true"></i> #872 C&emacr;sis-Valga 12:30-1:53pm &euro;2.9</div>
+        <div><i class="fa fa-train" aria-hidden="true"></i> #335 Valga-Tartu 2:26-3:38pm &euro;4.7</div>
+        <div><i class="fa fa-cutlery" aria-hidden="true"></i> <a href="http://www.ruunipizza.ee/" target="_blank">Ruunipizza ja Pannkoogikohvik</a></div>
+        <div><i class="fa fa-bed" aria-hidden="true"></i> <a href="http://www.hostelworld.com/hosteldetails.php/Terviseks/Tartu/50575" target="_blank">Terviseks</a></div>
+      </div>
+      <div class="day" style="left: 1450px; top: 1050px">
+        <div class="title">Day 4</div>
+        <div class="summary">Tartu &rarr; Tallinn &harr; Paldiski</div>
+        <div><i class="fa fa-train" aria-hidden="true"></i> #11 Tartu-Tallinn 7:26-9:32am &euro;11.5</div>
+        <div><i class="fa fa-bus" aria-hidden="true"></i> #21 Balti Jaam - Open Air Museum</div>
+        <div><i class="fa fa-camera" aria-hidden="true"></i> <a href="http://evm.ee/" target="_blank">Estonian Open Air Museum</a> &euro;9</div>
+        <div><i class="fa fa-bus" aria-hidden="true"></i> #21 Haabersti - Balti Jaam</div>
+        <div><i class="fa fa-train" aria-hidden="true"></i> #553 Tallinn-Paldiski 2:05-3:06pm &euro;3</div>
+        <div><i class="fa fa-train" aria-hidden="true"></i> #570 Paldiski-Tallinn 4:46-5:48pm &euro;3</div>
+        <div><i class="fa fa-bed" aria-hidden="true"></i> <a href="https://www.booking.com/hotel/ee/viru-backpackers.html" target="_blank">Viru Backpackers Hostel</a></div>
+      </div>
+      <div class="day" style="left: 400px; top: 500px">
+        <div class="title">Day 5</div>
+        <div class="ummary">Tallinn &rarr; Helsinki</div>
+        <div><i class="fa fa-ship" aria-hidden="true"></i> Lindaline 8-9:40am &euro;25</div>
+        <div><i class="fa fa-camera" aria-hidden="true"></i> <a href="http://www.helsinginkirkot.fi/" target="_blank">Temppeliaukion Kirkko</a> &euro;3</div>
+
+        <div><i class="fa fa-cutlery" aria-hidden="true"></i> Hesburger</div>
+        <div><i class="fa fa-cutlery" aria-hidden="true"></i> <a href="http://www.konstanmolja.fi/" target="_blank">Konstan M&ouml;lj&auml;</a></div>
+        <div><i class="fa fa-bed" aria-hidden="true"></i> <a href="https://www.cheapsleep.fi/" target="_blank">CheapSleep</a></div>
+
+      </div>
+      <div class="day" style="left: 250px; top: 100px">
+        <div class="title">Day 6</div>
+        <div class="summary">Helsinki &rarr; Copenhagen &rarr; Boston</div>
+        <div><i class="fa fa-train" aria-hidden="true"></i> I/P Train Station - Airport &euro;5.5</div>
+        <div><i class="fa fa-glass" aria-hidden="true"></i> <a href="https://www.prioritypass.com/en/loungesearch?entity=627b6ec0-b5b8-4a36-9795-6532053ad229" target="_blank">Aspire Lounge</a> @ RIX</div>
+        <div><i class="fa fa-plane" aria-hidden="true"></i> Finnair 665 HEL-CPH</div>
+        <div><i class="fa fa-plane" aria-hidden="true"></i> Norwegian 7145 CPH-BOS</div>
+      </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js"></script>
+    <script src="https://cdn.rawgit.com/allenhwkim/angularjs-google-maps/master/build/scripts/ng-map.min.js"></script>
+    <script>
+angular.module("app", ["ngMap"]).controller("ctrl", function($scope){
+  var _trips = [
+    [[577,2584],[630,2554],[695,2515],[810,2478],[848,2449]],
+    [[847,2452],[906,2423],[927,2429],[964,2421],[990,2413],[1011,2395],[1015,2372],[999,2343]],
+[[999,2344],[1040,2304],[1065,2259],[1056,2187],[1116,2161],[1148,2121],[1212,2097],[1282,2025],[1335,1968],[1356,1904],[1358,1823],[1415,1728],[1452,1683],[1475,1673],[1531,1614]],
+[[1527,1609],[1506,1525],[1486,1503],[1474,1431],[1421,1374],[1355,1201],[1352,1145],[1316,1072],[1258,986],[1193,993],[1151,988],[1127,968],[1086,967],[1004,920],[886,897],[866,878],[812,868]],
+[[811,867],[764,930],[728,952],[693,958],[559,921]],
+[[816,863],[819,838],[786,742],[877,504],[900,345],[885,332]]
+  ];
+  $scope.trips = _trips.map(function(trip){
+    return "M" + trip.map(function(pt){ return pt[0] + "," + pt[1] }).join(" L");
+  });
+  $scope.stops = [{"name":"Riga","x":574,"y":2585},{"name":"Sigulda","x":849,"y":2449},{"name":"Cēsis","x":995,"y":2342},{"name":"Tartu","x":1534,"y":1612},{"name":"Tallinn","x":809,"y":864},{"name":"Paldiski","x":555,"y":925},{"name":"Helsinki","x":878,"y":333}];
+});
+    </script>
+    <link href="https://fonts.googleapis.com/css?family=Righteous|Roboto:300|Roboto+Condensed:700" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/2.8.0/css/flag-icon.min.css" rel="stylesheet">
+    <style>
+body {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  margin: 0;
+}
+a {
+  color: inherit;
+  text-decoration-style: dotted;
+}
+#map, svg, #canvas {
+  position: absolute;
+  width: 1800px;
+  height: 2700px;
+  /*transform: scale(0.5)translate(-900px,-1350px);*/
+}
+ng-map {
+  width: 100%;
+  height: 100%;
+}
+path.trip {
+  stroke: #007777;
+  stroke-width: 7;
+  fill: none;
+}
+circle.stop {
+  fill: #300d04;
+}
+.placename {
+  font-size: 48px;
+  font-family: 'Righteous', sans-serif;
+  fill: #300d04;
+  text-anchor: end;
+}
+#canvas {
+  /*pointer-events: none;*/
+}
+.header {
+  position: absolute;
+  right: 20px;
+  top: 130px;
+  text-align: right;
+  font-family: 'Righteous', sans-serif;
+  font-size: 300px;
+  line-height: 240px;
+  letter-spacing: -15px;
+  color: #300d04;
+}
+.subheader {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  font-family: 'Righteous', sans-serif;
+  letter-spacing: -5px;
+  font-size: 84px;
+}
+.info {
+  position: absolute; 
+  top: 1000px;
+  left: 20px;
+  background-color: rgba(255,255,255,0.75);
+  padding: 10px;
+}
+.info-head {
+  font-size: 90px;
+}
+.country-head {
+  font-size: 42px;
+  margin: 14px 0 6px 0;
+}
+.country-info {
+  display: flex;
+  flex-warp: wrap;
+}
+.country-info>div {
+  margin-right: 10px;
+  flex-shrink: 0;
+}
+.day {
+  position: absolute;
+  background-color: #007777;
+  color: #ffffff;
+  width: 300px;
+  border-radius: 10px;
+  padding: 5px;
+  font-size: 14px;
+}
+.day .title {
+  font-size: 42px;
+}
+.day .summary {
+  font-size: 20px;
+}
+.day i.fa {
+  width: 16px;
+}
+    </style>
+  </body>
+</html>
