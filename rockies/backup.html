@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Calgary, Glacier and Canadian Rockies</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC1a5Qt70mQ9GzIX6uSgvLHHHeo6l4uLoo"></script>
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300|Shadows+Into+Light" rel="stylesheet">
+  </head>
+  <body ng-app="app" ng-controller="ctrl">
+
+    <div class="page homepage" style="background: url(https://lh3.googleusercontent.com/-b5uTcERG3Uw/WWE8_hLwpKI/AAAAAAAAUgM/no3gP508bcMXpdTMGu6OtG773v8MqYVeQCHMYBhgL/IMG_0803_1.JPG) center center no-repeat; background-size: cover;">
+      <div>
+        <h1>Calgary, Glacier and Canadian Rockies</h1>
+        <h3>June 28 - July 4, 2017</h3>
+      </div>
+    </div>
+    <div class="page">
+      <div>
+        <h2>Route</h2>
+        <div id="map" style="width: 100vw; height: calc(100vh - 120px)"></div>
+      </div>
+    </div>
+    <div class="page">
+      <div>
+        <h2>Statistics</h2>
+        <div>Total Budget: 279.76 USD</div>
+        <div id="budget" style="width: 600px; height: calc(100vh - 120px)"></div>
+      </div>
+    </div>
+    <div class="page">
+      <div>
+        <h2>Itinerary</h2>
+      </div>
+    </div>
+    <div class="page">
+      <div>
+        <h2>Highlights</h2>
+        <div style="display: flex; width: 100vw; flex-wrap: wrap; justify-content: center;">
+          <div ng-repeat="point in points" style="flex-shrink: 0; margin: 10px; width: 250px">
+            <div style="height: 250px; width: 250px; background-size: cover" ng-style="{ background : 'url(' + point.image + ') center center no-repeat' }"></div>
+            <h4>{{point.name}}</h4>
+            <div>{{point.description}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+var geojson = {"type":"Feature","geometry":{"type":"LineString","coordinates":[[-113.98898,48.52298],[-113.90532,48.57792],[-113.86154,48.64073],[-113.84241,48.64884],[-113.81603,48.69752],[-113.76595,48.72429],[-113.72549,48.72185],[-113.71345,48.69628],[-113.6689,48.69144],[-113.65237,48.67769],[-113.61238,48.67365],[-113.55098,48.69323],[-113.52555,48.69128],[-113.47789,48.71442],[-113.44771,48.74952],[-113.41786,48.75769],[-113.40732,48.79137],[-113.42029,48.81869],[-113.41702,48.84325],[-113.4365,48.85886],[-113.43123,48.92226],[-113.39476,48.95692],[-113.37806,49.00044],[-113.35395,49.03966],[-113.35217,49.06662],[-113.30008,49.11097],[-113.28541,49.13107],[-113.2864,49.20195],[-113.2973,49.20781],[-113.29726,49.35436],[-113.30836,49.37509],[-113.30839,49.44542],[-113.30255,49.47992],[-113.34349,49.52769],[-113.34358,49.58831],[-113.36155,49.65279],[-113.38875,49.69048],[-113.38842,49.71613],[-113.43746,49.71407],[-113.51539,49.76994],[-113.52384,49.78523],[-113.52829,49.91305],[-113.65547,50.18258],[-113.65833,50.25257],[-113.70226,50.2821],[-113.72424,50.31739],[-113.78786,50.35782],[-113.82811,50.41173],[-113.82812,50.59762],[-113.83636,50.65479],[-113.88187,50.69186],[-113.88533,50.72955],[-113.9856,50.8179],[-113.96184,50.86937],[-113.97518,50.89873],[-113.98274,50.94519],[-114.02683,50.95431],[-114.03976,50.99422],[-114.09445,50.99418],[-114.11795,51.00211],[-114.10633,51.06877],[-114.15364,51.10073],[-114.22811,51.13156],[-114.23818,51.08861],[-114.53158,51.08773],[-114.58044,51.09237],[-114.64829,51.11305],[-114.76397,51.1623],[-114.96058,51.12769],[-115.04657,51.09372],[-115.06205,51.07553],[-115.11645,51.07006],[-115.14513,51.05436],[-115.20067,51.05498],[-115.23909,51.04074],[-115.28278,51.04211],[-115.32035,51.05998],[-115.34208,51.0885],[-115.43972,51.16093],[-115.4646,51.16915],[-115.49925,51.19888],[-115.54803,51.19776],[-115.64809,51.17408],[-115.67975,51.15835],[-115.71993,51.16277],[-115.79649,51.21916],[-115.99704,51.28891],[-116.16824,51.41241],[-116.17411,51.42738],[-116.2139,51.44577],[-116.25043,51.48741],[-116.26435,51.519],[-116.3055,51.56959],[-116.30756,51.59795],[-116.33433,51.63685],[-116.37923,51.65535],[-116.43402,51.66137],[-116.52687,51.758],[-116.57281,51.78852],[-116.62451,51.84819],[-116.65887,51.86105],[-116.71946,51.91347],[-116.71639,51.96876],[-116.80492,51.98792],[-116.84406,52.02744],[-116.8941,52.0644],[-116.91718,52.07044],[-116.98134,52.11882],[-117.01007,52.15526],[-117.07744,52.18922],[-117.12841,52.19271],[-117.16959,52.21713],[-117.23873,52.2221],[-117.28634,52.26701],[-117.32643,52.29223],[-117.32859,52.32423],[-117.41275,52.4349],[-117.46057,52.46052],[-117.49332,52.46808],[-117.53553,52.49881],[-117.63691,52.53433],[-117.74095,52.58381],[-117.78771,52.58816],[-117.83934,52.61025],[-117.86416,52.63235],[-117.88142,52.66676],[-117.86581,52.68507],[-117.87351,52.71672],[-117.914,52.73423],[-117.95971,52.74139],[-118.0149,52.80196],[-118.0504,52.81417],[-118.08096,52.85994],[-118.08108,52.87734]],"style":{"stroke":"#f00"}}};
+var map = new google.maps.Map(document.getElementById('map'), {
+  zoom: 6,
+  center: { lng: -115 , lat: 51 },
+  styles: [{"featureType": "water", "elementType": "geometry", "stylers": [{"visibility": "on"}, {"color": "#aee2e0"}]}, {"featureType": "landscape", "elementType": "geometry.fill", "stylers": [{"color": "#abce83"}]}, {"featureType": "poi", "elementType": "geometry.fill", "stylers": [{"color": "#769E72"}]}, {"featureType": "poi", "elementType": "labels.text.fill", "stylers": [{"color": "#7B8758"}]}, {"featureType": "poi", "elementType": "labels.text.stroke", "stylers": [{"color": "#EBF4A4"}]}, {"featureType": "poi.park", "elementType": "geometry", "stylers": [{"visibility": "simplified"}, {"color": "#8dab68"}]}, {"featureType": "road", "elementType": "geometry.fill", "stylers": [{"visibility": "simplified"}]}, {"featureType": "road", "elementType": "labels.text.fill", "stylers": [{"color": "#5B5B3F"}]}, {"featureType": "road", "elementType": "labels.text.stroke", "stylers": [{"color": "#ABCE83"}]}, {"featureType": "road", "elementType": "labels.icon", "stylers": [{"visibility": "off"}]}, {"featureType": "road.local", "elementType": "geometry", "stylers": [{"color": "#A4C67D"}]}, {"featureType": "road.arterial", "elementType": "geometry", "stylers": [{"color": "#9BBF72"}]}, {"featureType": "road.highway", "elementType": "geometry", "stylers": [{"color": "#EBF4A4"}]}, {"featureType": "transit", "stylers": [{"visibility": "off"}]}, {"featureType": "administrative", "elementType": "geometry.stroke", "stylers": [{"visibility": "on"}, {"color": "#87ae79"}]}, {"featureType": "administrative", "elementType": "geometry.fill", "stylers": [{"color": "#7f2200"}, {"visibility": "off"}]}, {"featureType": "administrative", "elementType": "labels.text.stroke", "stylers": [{"color": "#ffffff"}, {"visibility": "on"}, {"weight": 4.1}]}, {"featureType": "administrative", "elementType": "labels.text.fill", "stylers": [{"color": "#495421"}]}, {"featureType": "administrative.neighborhood", "elementType": "labels", "stylers": [{"visibility": "off"}]}],
+  scrollwheel: false,
+  mapTypeId: 'terrain'
+});
+map.data.addGeoJson(geojson);
+new google.maps.Marker({ position: {lat: 48.52298, lng: -113.98898}, map: map });
+new google.maps.Marker({ position: {lat: 51.048, lng: -114.070}, map: map });
+new google.maps.Marker({ position: {lat: 51.425, lng: -116.177}, map: map });
+new google.maps.Marker({ position: {lat: 52.189, lng: -117.257}, map: map });
+new google.maps.Marker({ position: {lat: 52.87734, lng: -118.08108}, map: map });
+
+google.charts.load('current', {packages: ['corechart']});
+google.charts.setOnLoadCallback(function(){
+  var data = google.visualization.arrayToDataTable([
+    ['Task', 'Hours per Day'],
+    ['Car Rental', 133.26],
+    ['Gas', 77.14],
+    ['Camping', 17.15],
+    ['Grocery', 22.21],
+    ['Tickets', 30]
+  ]);
+
+  var chart = new google.visualization.PieChart(document.getElementById("budget")).draw(data, { legend: { position: "none" }, pieSliceText: "label" });
+});
+
+angular.module("app", []).controller("ctrl", function($scope){
+  $scope.points = [
+    {
+      name: "Calgary",
+      description: "",
+      image: "https://lh3.googleusercontent.com/-n11UwXSG1is/WWE_n75f2MI/AAAAAAAAUgM/RzKJY8bMDw8m4ZQgE96QDLBH4p-wbUzUACHMYBhgL/20170629_164908.jpg"
+    },
+    {
+      name: "Logan Pass",
+      description: "",
+      image: "https://lh3.googleusercontent.com/-lZblOzsXSLY/WWE7mUrEyhI/AAAAAAAAUgM/qkFLLBFTuEAhWqq6n220QcDJTIRrnyCuwCHMYBhgL/IMG_0845.JPG"
+    },
+    {
+      name: "Going-to-the-Sun Road",
+      description: "",
+      image: "https://lh3.googleusercontent.com/-DPitZ4zP9U0/WWE7mdW-YNI/AAAAAAAAUgM/4ydic7P4nLQAcPvWN_9e5y33Y_ShR4YWQCHMYBhgL/IMG_0832.JPG"
+    },
+    {
+      name: "Lake McDonald & Lodge",
+      description: "",
+      image: "https://lh3.googleusercontent.com/-069jEQNlul4/WWE_n0dmKYI/AAAAAAAAUgM/u0v7qA1q_f0gB2qryybtlD2byxcYe8N8QCHMYBhgL/20170630_142412.jpg"
+    },
+    {
+      name: "The Loop Trail",
+      description: "",
+      image: "https://lh3.googleusercontent.com/-gRVUWqEEE98/WWE_n9wjXUI/AAAAAAAAUgM/_X3sSKi-jPo-osDSEKqxqww-Wlw777G_wCHMYBhgL/20170630_161902.jpg"
+    },
+    {
+      name: "St Mary Lake",
+      description: "",
+      image: "https://lh3.googleusercontent.com/-UGzKLGAN7jY/WWE8_vePGvI/AAAAAAAAUgM/2f5fCXnEgfItVV_BF-VkkeX8lJCLn3NmwCHMYBhgL/IMG_0860_1.JPG"
+    },
+    {
+      name: "Iceberg Lake",
+      description: "",
+      image: "https://lh3.googleusercontent.com/-PaJ2tbtYbUQ/WWE7mf1Q1CI/AAAAAAAAUgM/vaT4IFKlZcIpEWaODGgjSTTvjajnBW1AgCHMYBhgL/IMG_0884.JPG"
+    },
+    {
+      name: "Many Glaciers",
+      description: "",
+      image: "https://lh3.googleusercontent.com/-3KMDQlfoAKE/WWE8_gfbLUI/AAAAAAAAUgM/BbeJ0_P3pRcLLqsmB4H5nCjA8zKb-jbZwCHMYBhgL/IMG_0896_1.JPG"
+    },
+    {
+      name: "Columbia Icefield",
+      description: "",
+      image: "https://lh3.googleusercontent.com/-yRtLVj-6o7g/WWE7meg_p-I/AAAAAAAAUgM/pQXnFgoSiTAT11q-sX2T_ODkVI495uU_wCHMYBhgL/IMG_0935.JPG"
+    },
+    {
+      name: "Icefield Highway",
+      description: "",
+      image: "https://lh3.googleusercontent.com/-URBhmDyRQkE/WWE_n_FNZzI/AAAAAAAAUgM/0m9UMWPJsWc2hqkWoPTtItVHckhC27mwwCHMYBhgL/20170703_142218.jpg"
+    },
+    {
+      name: "Jasper",
+      description: "",
+      image: "https://lh3.googleusercontent.com/-NaioMta_SBw/WWE7mbQC7sI/AAAAAAAAUgM/vXYQubAiLvYO9oH-TZWHGfSJ4Z2-ZyZowCHMYBhgL/IMG_0997.JPG"
+    },
+    {
+      name: "Edith Cavell",
+      description: "",
+      image: "https://lh3.googleusercontent.com/-NA6KKSpURTY/WWE7mQdesnI/AAAAAAAAUgM/dk2gD-b0MOUJjt7Z6kqhq109j-SVMQJ6ACHMYBhgL/IMG_1081.JPG"
+    },
+    {
+      name: "North of Banff",
+      description: "",
+      image: "https://lh3.googleusercontent.com/-lR2PJXxocck/WWE7me2cpvI/AAAAAAAAUgM/G10pIYuWEXgMDIIVNIKg6PB4sPLDJPzRQCHMYBhgL/IMG_1121.JPG"
+    },
+    {
+      name: "Lake Louise & Plain of Six Glaciers",
+      description: "",
+      image: "https://lh3.googleusercontent.com/-rj_YHmXGuec/WWE7mUa6dDI/AAAAAAAAUgM/2tDh9YRtRIg3DRP_hfyC_n2pwmmW1oT_ACHMYBhgL/IMG_1139.JPG"
+    }
+  ];
+});
+    </script>
+
+    <style>
+body {
+  font-family: Roboto;
+  font-weight: 300;
+  margin: 0;
+}
+h1, h2, h3, h4 {
+  font-weight: 300;
+  line-height: 0.9em;
+  font-family: 'Shadows Into Light', cursive;
+  color: #004040;
+}
+h1 {
+  font-size: 84px;
+  text-shadow: 2px 2px 10px #ffffff;
+}
+h2 {
+  font-size: 54px;
+}
+h3 {
+  font-size: 32px;
+  text-shadow: 2px 2px 10px #ffffff;
+}
+h4 {
+  font-size: 20px;
+}
+.page {
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+}
+.homepage {
+  align-items: center;
+}
+.page>div {
+  text-align: center;
+}
+    </style>
+  </body>
+</html>
