@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <div id="map"></div>
+    <svg width="1920" height="1360" style="position: absolute; top: 0;">
+
+      <defs>
+        <marker id="arrow" markerWidth="10" markerHeight="10" refX="0" refY="2" orient="auto" markerUnits="strokeWidth">
+          <path d="M0,0 L0,4 L8,2 z" fill="#555" />
+        </marker>
+      </defs>
+      <path transform="translate(975,680)rotate(75)" d="M0,0L100,0" stroke="#555" stroke-width="3" marker-end="url(#arrow)" stroke-dasharray="5 3" />
+      <path transform="translate(1000,1100)rotate(-105)" d="M0,0L100,0" stroke="#555" stroke-width="3" marker-end="url(#arrow)" stroke-dasharray="5 3" />
+      <path transform="translate(775,490)rotate(-130)" d="M0,0L100,0" stroke="#555" stroke-width="3" marker-end="url(#arrow)" stroke-dasharray="5 3" />
+      <path transform="translate(475,150)rotate(65)" d="M0,0L100,0" stroke="#555" stroke-width="3" marker-end="url(#arrow)" stroke-dasharray="5 3" />
+
+      <foreignObject transform="translate(50,180)" width="600" class="land">Jasper National Park</foreignObject>
+      <foreignObject transform="translate(300,520)" width="600" class="land">Banff National Park</foreignObject>
+      <foreignObject transform="translate(475,1170)" width="600" class="land">Glacier National Park</foreignObject>
+
+      <foreignObject width="250" transform="translate(950,635)"><div>
+        <b>Day 1 (June 30, 2017)</b><br>Calgary &rarr; St Mary &rarr; Apgar &rarr; The Loop Trail &rarr; Avalanche Campground
+      </div></foreignObject>
+      <foreignObject width="250" transform="translate(775,1100)" style="text-align: right"><div>
+        <b>Day 2 (July 1, 2017)</b><br>Avalanche Campground &rarr; Logan Pass &rarr; St Mary &rarr; Iceberg Trail &rarr; Calgary
+      </div></foreignObject>
+      <foreignObject width="250" transform="translate(650,650)"><div>
+        <b>Day 3 (July 2, 2017)</b><br>Calgary &harr; Heart Creek Trail
+      </div></foreignObject>
+      <foreignObject width="250" transform="translate(750,485)"><div>
+        <b>Day 4 (July 3, 2017)</b><br>Calgary &rarr; Banff &rarr; Columbia Icefield &rarr; Jasper &rarr; Athabasca Falls &rarr; Mt Kerkeslin Campground
+      </div></foreignObject>
+      <foreignObject width="250" transform="translate(450,100)"><div>
+        <b>Day 5 (July 4, 2017)</b><br>Mt Kerkeslin Campground &rarr; Jasper &rarr; Edith Covell &rarr; Peyto Lake &rarr; Bow Lake &rarr; Lake Louise &rarr; Calgary
+      </div></foreignObject>
+    </svg>
+    <div id="overlay">
+      <div class="title">Visiting Glacier, Jasper and Banff National Parks from Calgary</div>
+      <div class="subtitle">June 30 - July 4, 2017</div>
+
+      <div class="header">Why did I go?</div>
+      <div style="width: 600px; margin-left: 360px; text-align: left">After Yellowstone and Grand Teton, I had been thinking of visiting Glacier National Park, the northernmost US national park in the Rockies, but its remoteness had been an issue. Until this year, I realized the closest big city to Glacier National Park is: Calgary, Alberta, Canada! Therefore I buffered my July 4th weekend, used my friends' place as a basecamp, and visited Glacier, Jasper and Banff - three national parks over a long weekend! What I did there are mostly: hiking and camping alone, enjoying the scenic drive, visiting destinations not in my plan, and drinking straight from glacier water! Coming from a subtropical country, I rarely had a chance to spot glacier landscapes, let alone active glaciers. During this trip, however, I was always surrounded by glaciers, snow-capped mountains, temperate forests, U-shaped valleys, and occasionally, wildlife.</div>
+      <div class="header">About</div>
+      <div style="display: flex; text-align: left; justify-content: space-between; width: 600px; margin-left: 360px">
+        <div><b><u>Calgary</u></b><br>Alberta, Canada<br><b>Established</b> 1875<br><b>Population</b> 1,239,220<br><b>Metro Pop</b> 1,392,609</div>
+        <div><b><u>Glacier</u></b><br>Montana, USA<br><b>Established</b> 1910<br><b>Area</b> 4,100.77 km&sup2;<br><b>Visitors</b> 2,946,681</div>
+        <div><b><u>Jasper</u></b><br>Alberta, Canada<br><b>Established</b> 1907<br><b>Area</b> 10,878 km&sup2;<br><b>Visitors</b> 2,154,710</div>
+        <div><b><u>Banff</u></b><br>Alberta, Canada<br><b>Established</b> 1885<br><b>Area</b> 6,641 km&sup2;<br><b>Visitors</b>  3,609,639</div>
+      </div>
+      <div class="header">Budget (USD)</div>
+      <div>
+ <b>Car Rental</b> 133.26 &nbsp;
+ <b>Gas</b> 77.14 &nbsp;
+ <b>Grocery</b> 22.21 &nbsp;
+ <b>Camping</b> 17.15 &nbsp;
+ <b>Park Admission</b> 30
+      </div>
+      <div class="header">Symbols</div>
+      <div><span style="color: #FBC02D">&#9679;</span> View/Information &nbsp; <span style="color: #F06292">&#9679;</span> Hiking &nbsp; <span style="color: #4DB6AC">&#9679;</span> Sleeping</div>
+
+    </div>
+    <script src="https://maps.googleapis.com/maps/api/js"></script>
+    <script>
+var geojson = {"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"LineString","coordinates":[[-113.98898,48.52298],[-113.90532,48.57792],[-113.86154,48.64073],[-113.84241,48.64884],[-113.81603,48.69752],[-113.76595,48.72429],[-113.72549,48.72185],[-113.71345,48.69628],[-113.6689,48.69144],[-113.65237,48.67769],[-113.61238,48.67365],[-113.55098,48.69323],[-113.52555,48.69128],[-113.47789,48.71442],[-113.44771,48.74952],[-113.41786,48.75769],[-113.40732,48.79137],[-113.42029,48.81869],[-113.41702,48.84325],[-113.4365,48.85886],[-113.43123,48.92226],[-113.39476,48.95692],[-113.37806,49.00044],[-113.35395,49.03966],[-113.35217,49.06662],[-113.30008,49.11097],[-113.28541,49.13107],[-113.2864,49.20195],[-113.2973,49.20781],[-113.29726,49.35436],[-113.30836,49.37509],[-113.30839,49.44542],[-113.30255,49.47992],[-113.34349,49.52769],[-113.34358,49.58831],[-113.36155,49.65279],[-113.38875,49.69048],[-113.38842,49.71613],[-113.43746,49.71407],[-113.51539,49.76994],[-113.52384,49.78523],[-113.52829,49.91305],[-113.65547,50.18258],[-113.65833,50.25257],[-113.70226,50.2821],[-113.72424,50.31739],[-113.78786,50.35782],[-113.82811,50.41173],[-113.82812,50.59762],[-113.83636,50.65479],[-113.88187,50.69186],[-113.88533,50.72955],[-113.9856,50.8179],[-113.96184,50.86937],[-113.97518,50.89873],[-113.98274,50.94519],[-114.02683,50.95431],[-114.03976,50.99422],[-114.09445,50.99418],[-114.11795,51.00211],[-114.10633,51.06877],[-114.15364,51.10073],[-114.22811,51.13156],[-114.23818,51.08861],[-114.53158,51.08773],[-114.58044,51.09237],[-114.64829,51.11305],[-114.76397,51.1623],[-114.96058,51.12769],[-115.04657,51.09372],[-115.06205,51.07553],[-115.11645,51.07006],[-115.14513,51.05436],[-115.20067,51.05498],[-115.23909,51.04074],[-115.28278,51.04211],[-115.32035,51.05998],[-115.34208,51.0885],[-115.43972,51.16093],[-115.4646,51.16915],[-115.49925,51.19888],[-115.54803,51.19776],[-115.64809,51.17408],[-115.67975,51.15835],[-115.71993,51.16277],[-115.79649,51.21916],[-115.99704,51.28891],[-116.16824,51.41241],[-116.17411,51.42738],[-116.2139,51.44577],[-116.25043,51.48741],[-116.26435,51.519],[-116.3055,51.56959],[-116.30756,51.59795],[-116.33433,51.63685],[-116.37923,51.65535],[-116.43402,51.66137],[-116.52687,51.758],[-116.57281,51.78852],[-116.62451,51.84819],[-116.65887,51.86105],[-116.71946,51.91347],[-116.71639,51.96876],[-116.80492,51.98792],[-116.84406,52.02744],[-116.8941,52.0644],[-116.91718,52.07044],[-116.98134,52.11882],[-117.01007,52.15526],[-117.07744,52.18922],[-117.12841,52.19271],[-117.16959,52.21713],[-117.23873,52.2221],[-117.28634,52.26701],[-117.32643,52.29223],[-117.32859,52.32423],[-117.41275,52.4349],[-117.46057,52.46052],[-117.49332,52.46808],[-117.53553,52.49881],[-117.63691,52.53433],[-117.74095,52.58381],[-117.78771,52.58816],[-117.83934,52.61025],[-117.86416,52.63235],[-117.88142,52.66676],[-117.86581,52.68507],[-117.87351,52.71672],[-117.914,52.73423],[-117.95971,52.74139],[-118.0149,52.80196],[-118.0504,52.81417],[-118.08096,52.85994],[-118.08108,52.87734]]}},{"type":"Feature","geometry":{"type":"LineString","coordinates":[[-113.42967,48.74368],[-113.40732,48.79137],[-113.43179,48.85522],[-113.46214,48.83849],[-113.57957,48.82227],[-113.60391,48.81152],[-113.67896,48.79961]]}},{"type":"Feature","geometry":{"type":"LineString","coordinates":[[-118.08147,52.87373],[-118.08244,52.86092],[-118.0504,52.81417],[-118.04645,52.79699],[-118.03268,52.78556],[-118.03282,52.77517],[-118.04681,52.74905],[-118.04869,52.72823],[-118.0606,52.70425],[-118.05622,52.68734]]}}]};
+
+
+
+
+var map = new google.maps.Map(document.getElementById('map'), {
+  zoom: 8,
+  center: { lng: -113.8 , lat: 50.8 },
+  styles: [{
+    "featureType": "all",
+    "elementType": "labels",
+    "stylers": [{
+      "visibility": "off"
+    }]
+  }, {
+    "featureType": "administrative",
+    "elementType": "all",
+    "stylers": [{
+      "visibility": "off"
+    }]
+  }],
+  disableDefaultUI: true,
+  mapTypeId: "terrain"
+
+});
+map.data.addGeoJson(geojson);
+map.data.setStyle(function(feature){
+  var type = feature.getGeometry().getType();
+  if (type === "LineString") {
+    return { strokeColor: "#555", strokeWeight: 5 };
+  };
+});
+
+var points = [
+  { name: "Calgary", position: {lat: 51.048, lng: -114.070}, color: "#4DB6AC" },
+  { name: "Logan Pass", position: {lat: 48.6966411, lng: -113.71817}, color: "#FBC02D" },
+  { name: "Lake McDonald Lodge", position: {lat: 48.6173923, lng: -113.8791275}, color: "#FBC02D" },
+  { name: "Apgar Visitor Center", position: {lat: 48.5231068, lng: -113.9885197}, color: "#FBC02D" },
+  { name: "The Loop", position: {lat: 48.7548422, lng: -113.8003162}, color: "#F06292", labelLeft: true },
+  { name: "Avalanche Campground", position: {lat: 48.6780052, lng: -113.8186812}, color: "#4DB6AC", labelLeft: true },
+  { name: "St Mary Visitor Center", position: {lat: 48.74732359999999, lng: -113.4390336}, color: "#FBC02D" },
+  { name: "Iceberg Trail", position: {lat: 48.7995355, lng: -113.6773932}, color: "#F06292", labelLeft: true },
+  { name: "Heart Creek Trail", position: { lat: 51.0473238, lng: -115.1642936}, color: "#F06292" },
+  { name: "Columbia Icefield", position: {lat: 52.22031699999999, lng: -117.2243341}, color: "#F06292" },
+  { name: "Jasper", position: {lat: 52.8736786, lng: -118.0813581}, color: "#FBC02D" },
+  { name: "Mt Kerkeslin Campground", position: {lat: 52.63430289999999, lng: -117.866543}, color: "#4DB6AC" },
+  { name: "Edith Cavell", position: {lat: 52.6683333, lng: -118.0566666}, color: "#F06292", labelLeft: true },
+  { name: "Athabasca Falls", position: {lat: 52.664437, lng: -117.8837671}, color: "#FBC02D" },
+  { name: "Peyto Lake", position: {lat: 51.7255153, lng: -116.5226977}, color: "#FBC02D", labelLeft: true },
+  { name: "Bow Lake", position: {lat: 51.6712779, lng: -116.460027}, color: "#FBC02D" },
+  { name: "Lake Louise", position: {lat: 51.4253705, lng: -116.1772552}, color: "#F06292" }
+];
+points.forEach(function(point){
+  new google.maps.Marker({ 
+    position: point.position,
+    map: map,
+    icon: {
+      path: "M-1,0a1,1 0 1,0 2,0a1,1 0 1,0 -2,0z",
+      scale: 10,
+      strokeWeight: 0,
+      fillColor: point.color,
+      fillOpacity: 1,
+      labelOrigin: new google.maps.Point(point.name.length / (point.labelLeft ? -2 : 2), 0)
+    },
+    label: { text: point.name, fontSize: "14px", fontWeight: "700" }
+  });
+});
+
+    </script>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <style>
+body {
+  width: 1920px;
+  height: 1360px;
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+}
+#map {
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+#overlay {
+  position: absolute;
+  width: 960px;
+  top: 20px;
+  left: 920px;
+  text-align: right;
+}
+.title {
+  font-size: 128px;
+  line-height: 1em;
+  color: DarkSlateGray;
+  font-family: Georgia;
+}
+.subtitle {
+  font-size: 54px;
+  color: DarkSlateGray;
+  font-family: Georgia;
+  line-height: 2em;
+}
+.header {
+  font-size: 28px;
+  font-weight: bold;
+  color: #555;
+  margin: 24px 0 8px 0;
+}
+span {
+  font-size: 36px;
+  line-height: 18px;
+}
+foreignObject>div {
+  font-size: 12px;
+  background-color: #555;
+  color: #ddd;
+  padding: 5px;
+  border-radius: 5px;
+}
+foreignObject.land {
+  color: DarkSlateGray;
+  font-family: Georgia;
+  font-size: 48px;
+  opacity: .75;
+}
+    </style>
+  </body>
+</html>
