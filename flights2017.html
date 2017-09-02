@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css?family=Titillium+Web:900" rel="stylesheet">
+<style>
+body {
+  margin: 0;
+  width: 1000px;
+  position: relative;
+}
+svg {
+  border: 1px solid #000;
+}
+.sphere {
+  fill: none;
+}
+.graticule {
+  fill: none;
+  stroke: #777;
+  stroke-width: .5px;
+  stroke-opacity: .5;
+}
+.country {
+  fill: #ccc;
+  stroke: #aaa;
+  stroke-width: .5px;
+}
+text.point {
+  font-size: 12px;
+  font-family: Arial;
+  font-weight: 700;
+}
+text.flight {
+  font-size: 10px;
+  font-family: Arial;
+}
+.overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  text-align: right;
+  height: 800px;
+}
+.title {
+  font-family: 'Titillium Web', cursive;
+  font-size: 54px;
+  opacity: .3;
+}
+#flight-14 {
+  stroke: #FF9800;
+  stroke-width: 8;
+  stroke-dasharray: 12 6;
+}
+#flight-label-14 {
+  fill: #FF9800;
+  font-size: 24px;
+}
+</style>
+<body>
+<svg width="1000" height="800">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="2.5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,5 L9,2.5 z" fill="#000" />
+    </marker>
+    <marker id="reverse-arrow" markerWidth="10" markerHeight="10" refX="0" refY="2.5" orient="auto" markerUnits="strokeWidth">
+      <path d="M9,0 L9,5 L0,2.5 z" fill="#000" />
+    </marker>
+  </defs>
+</svg>
+<div class="overlay">
+  <div style="width: 600px; font-size: 120px; line-height: 100px; font-family: 'Titillium Web', cursive; margin: 20px; opacity: 0.6">Buffering the Long Weekends</div>
+  <div style="position: absolute; right: 0; bottom: 0; width: 400px; margin: 20px; font-size: 48px; line-height: 44px; font-family: Arial">My Past<br>and Planned<br>Long Weekend Travels in 2017</div>
+</div>
+<script src="https://d3js.org/d3.v3.min.js"></script>
+<script src="https://d3js.org/topojson.v1.min.js"></script>
+<script>
+function d3_geo_azimuthal(scale, angle) {
+  function azimuthal(λ, φ) {
+    var cosλ = Math.cos(λ), cosφ = Math.cos(φ), k = scale(cosλ * cosφ);
+    return [k * cosφ * Math.sin(λ), k * Math.sin(φ)];
+  }
+  azimuthal.invert = function(x, y) {
+    var ρ = Math.sqrt(x * x + y * y), c = angle(ρ), sinc = Math.sin(c), cosc = Math.cos(c);
+    return [Math.atan2(x * sinc, ρ * cosc), Math.asin(ρ && y * sinc / ρ)];
+  };
+  return azimuthal;
+};
+var d3_geo_azimuthalEquidistant = d3_geo_azimuthal(
+  function(cosλcosφ) {
+    var c = Math.acos(cosλcosφ);
+    return Math.log((c && c / Math.sin(c)) + 1);
+  },
+  function(d) { return d }
+);
+var projection = d3.geo.projection(d3_geo_azimuthalEquidistant).scale(600)
+  .rotate([72, -50, 0]).translate([300, 680]).clipAngle(120);
+var path = d3.geo.path().projection(projection);
+var svg = d3.select("svg");
+svg.append("path").datum({type: "Sphere"}).attr({ class: "sphere", d: path })
+svg.append("path").datum(d3.geo.graticule()).attr({ class: "graticule", d: path });
+d3.json("https://cdn.rawgit.com/jeromecyang/bos/gh-pages/common/geodata/tm_world_borders_simpl-0.3.json", function(error, world) {
+  if (error) throw error;
+  svg.append("path").datum(topojson.feature(world, world.objects['TM_WORLD_BORDERS_SIMPL-0']))
+    .attr("class", "country").attr("d", path);
+  var titlesGroup = svg.append("g");
+  var flightsGroup = svg.append("g");
+  var pointsGroup = svg.append("g");
+
+  var points = [
+    { name: "Boston", location: {lat: 42.3600825, lng: -71.0588801}, translate: [8, 16] },
+    { name: "Hong Kong", location: {lat: 22.396428, lng: 114.109497} },
+    { name: "Taipei", location: {lat: 25.0329694, lng: 121.5654177}, translate: [-42, -6] },
+    //{ name: "Osaka", location: {lat: 34.6937378, lng: 135.5021651}, translate: [-48, 12] },
+    { name: "New York", location: {lat: 40.7127837, lng: -74.0059413}, translate: [0, 24] },
+    { name: "Calgary", location: {lat: 51.0486151, lng: -114.0708459}, translate: [-54, 0] },
+    { name: "Ottawa", location: {lat: 45.4215296, lng: -75.69719309999999}, translate: [-50, 12] },
+    { name: "Zurich", location: {lat: 47.3768866, lng: 8.541694}, translate: [4, -4] },
+    { name: "Madrid", location: {lat: 40.4167754, lng: -3.7037902}, translate: [4, 16] },
+    { name: "Barcelona", location: {lat: 41.3850639, lng: 2.1734035}, translate: [12, 8] },
+    { name: "Oslo", location: {lat: 59.9138688, lng: 10.7522454}, translate: [-40, 0] },
+    { name: "Riga", location: {lat: 56.9496487, lng: 24.1051865}, translate: [4, 0] },
+    { name: "Helsinki", location: {lat: 60.16985569999999, lng: 24.9383791}, translate: [-56, 0] },
+    { name: "Copenhagen", location: {lat: 55.6760968, lng: 12.5683372}, translate: [4, 0] }
+  ];
+  var pointObj = {};
+  points.forEach(function(point){
+    point.projectedLocation = projection([point.location.lng, point.location.lat]);
+    pointObj[point.name] = point.projectedLocation;
+    pointsGroup.append("circle").attr({
+      cx: point.projectedLocation[0],
+      cy: point.projectedLocation[1],
+      r: 4
+    });
+    pointsGroup.append("text").attr({
+      class: "point",
+      x: point.projectedLocation[0] + 3,
+      y: point.projectedLocation[1] - 3,
+      transform: "translate(" + point.translate + ")"
+    }).text(point.name);
+  });
+
+  var flights = [
+    { from: "Boston", to: "Zurich", c: 0.15, no: "LX53", date: "1/13" },
+    { from: "Zurich", to: "Madrid", c: 0.25, no: "LX2026", date: "1/14" },
+    { from: "Madrid", to: "Barcelona", c: 0.4, dashed: true },
+    { from: "Barcelona", to: "Zurich", c: 0.3, no: "LX1955", date: "2/22", reversed: true },
+    { from: "Zurich", to: "Boston", c: 0.05, d: -1, no: "LX52", date: "2/22", reversed: true },
+    { from: "Boston", to: "Oslo", c: 0.1, d: -1, no: "DY7142", date: "5/26" },
+    { from: "Oslo", to: "Riga", c: 0.3, no: "BT160", date: "5/27" },
+    { from: "Riga", to: "Helsinki", c: 0.5, dashed: true },
+    { from: "Helsinki", to: "Copenhagen", c: 0.3, no: "AY665", date: "6/1" },
+    { from: "Copenhagen", to: "Boston", c: 0.05, d: -1, no: "DY7145", date: "6/1", reversed: true },
+    { from: "Boston", to: "New York", c: 0.5, d: -1, no: "DL3849", date: "6/28" },
+    { from: "New York", to: "Calgary", c: 0.2, d: -1, no: "WS1681", date: "6/28", reversed: true },
+    { from: "Calgary", to: "Ottawa", c: 0.2, d: -1, no: "AC354", date: "7/4" },
+    { from: "Ottawa", to: "Boston", c: 0.4, no: "AC8044", date: "7/5" },
+    { from: "Boston", to: "Hong Kong", c: 0.1, no: "CX811", date: "9/4", reversed: true },
+    { from: "Hong Kong", to: "Taipei", c: 0.3, no: "CX406", date: "9/5", reversed: true, togo: true },
+    //{ from: "Taipei", to: "Osaka", c: 0.25, no: "MM22", date: "9/19", reversed: true, togo: true },
+    //{ from: "Osaka", to: "Taipei", c: 0.25, no: "MM29", date: "9/22", togo: true },
+    { from: "Taipei", to: "Hong Kong", c: 0.3, no: "CX565", date: "9/23", togo: true },
+    { from: "Hong Kong", to: "Boston", c: 0.1, no: "CX812", date: "9/23", togo: true }
+  ];
+  flights.forEach(function(flight, i){
+    var from = pointObj[flight.from];
+    var to = pointObj[flight.to];
+    var d = flight.d || 1;
+    if (flight.reversed) {
+      to = [from, from = to][0];
+      d = -d;
+    };
+    flightsGroup.append("path").attr({
+      id: "flight-" + i,
+      d: bezier(from, to, flight.c || 0.1, d),
+      stroke: "#000",
+      "stroke-width": 1.2,
+      fill: "none",
+      "stroke-dasharray": flight.dashed ? "2 2" : flight.togo ? "8 4" : null,
+      'marker-start': flight.reversed && i !== 14 ? "url(#reverse-arrow)" : null,
+      'marker-end': !flight.reversed && i !== 14 ? "url(#arrow)" : null
+    });
+    flightsGroup.append("text").append("textPath").attr({
+      id: "flight-label-" + i,
+      class: "flight",
+      "alignment-baseline": "after-edge",
+      "xlink:href": "#flight-" + i,
+      startOffset: "50%",
+      "text-anchor": "middle",
+      "font-size": 10,
+      "font-family": "Arial"
+    }).text(flight.no && flight.date ? (flight.no + ", " + flight.date) : "");
+  });
+
+  var titles = [
+    { name: "MLK Day", transform: "translate(400,715)rotate(-35)", color: "#E91E63" },
+    { name: "Memorial Day", transform: "translate(325,715)rotate(-50)", color: "#3F51B5" },
+    { name: "July Fourth", transform: "translate(30,620)rotate(30)", color: "#009688" },
+    { name: "Labor Day", transform: "translate(240,250)rotate(85)", color: "#FF9800" }
+  ];
+  titles.forEach(function(title){
+    titlesGroup.append("text").attr({
+      class: "title",
+      transform: title.transform,
+      fill: title.color
+    }).text(title.name);
+  });
+
+  svg.append("path").attr({
+    d: "M0,0L15,45L-15,45z",
+    transform: "translate(" + pointObj['Hong Kong'] + ")rotate(-33)",
+    fill: "#FF9800"
+  });
+});
+function bezier(from, to, c, d){
+  var diffX = to[0]-from[0];
+  var diffY = to[1]-from[1];
+  var mid1 = [(1-c)*from[0]+c*to[0]-d*c*diffY, (1-c)*from[1]+c*to[1]+d*c*diffX];
+  var mid2 = [c*from[0]+(1-c)*to[0]-d*c*diffY, c*from[1]+(1-c)*to[1]+d*c*diffX];
+  return "M" + from + "C" + mid1 + " " + mid2 + " " + to;
+};
+</script>
