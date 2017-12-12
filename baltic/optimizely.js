@@ -11177,7 +11177,8 @@
   }], t.onPageActivated = ["stores/view_data", function(e) {
     return function(t) {
       var n = r(t, e, x);
-      console.log(n, t, e, x);
+      n.userFeatures[0].value = "ff";
+      console.log(n);
       F.retryableRequest({
         url: A,
         method: "POST",
