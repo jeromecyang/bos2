@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+  <div id="map" style="width: 2400px; height: 1350px"></div>
+  <script src="https://maps.googleapis.com/maps/api/js"></script>
+  <script>
+  const map = new google.maps.Map(document.getElementById('map'), {
+    //zoom: 6,
+    //center: { lng: 100, lat: 45 },
+    //zoom: 5,
+    //center: { lng: 70, lat: 55 },
+    //xinjiang
+    center: { lng: 85, lat: 40 },
+    zoom: 7,
+    disableDefaultUI: true,
+    mapTypeId: "terrain",
+  });
+
+  const styles = ["noLabel"];
+  const bgColor = "#eeeeee";
+  const waterColor = "#888888";
+
+  const lib = {};
+
+  lib.noLabel = [{
+    "featureType": "all",
+    "elementType": "labels",
+    "stylers": [{
+      "visibility": "off"
+    }]
+  }, {
+    "featureType": "administrative.country",
+    "elementType": "geometry",
+    "stylers": [{
+      "visibility": "on"
+    }]
+  }, {
+    "featureType": "road",
+    "elementType": "all",
+    "stylers": [{
+      "visibility": "off"
+    }]
+  }, {
+    "featureType": "road.highway",
+    "elementType": "geometry",
+    "stylers": [{
+      "visibility": "on"
+    }]
+  }, {
+    "featureType": "transit",
+    "elementType": "all",
+    "stylers": [{
+      "visibility": "off"
+    }]
+  }];
+
+  lib.mono = [{
+    "featureType": "all",
+    "elementType": "geometry",
+    "stylers": [{
+      "color": (bgColor || "#ffffff")
+    }]
+  }];
+
+  lib.water = [{
+    "featureType": "water",
+    "elementType": "geometry",
+    "stylers": [{
+      "color": (waterColor || "#bbbbbb")
+    }]
+  }];
+
+  lib.pink = [{
+      "featureType": "administrative",
+      "elementType": "labels.text.fill",
+      "stylers": [{
+          "gamma": "1.42"
+        },
+        {
+          "lightness": "11"
+        },
+        {
+          "saturation": "-100"
+        }
+      ]
+    },
+    {
+      "featureType": "administrative",
+      "elementType": "labels.text.stroke",
+      "stylers": [{
+        "visibility": "off"
+      }]
+    },
+    {
+      "featureType": "administrative.country",
+      "elementType": "geometry.stroke",
+      "stylers": [{
+          "lightness": -5
+        },
+        {
+          "color": "#b0b0b0"
+        },
+        {
+          "weight": 1.7
+        }
+      ]
+    },
+    {
+      "featureType": "administrative.country",
+      "elementType": "labels.text.stroke",
+      "stylers": [{
+        "visibility": "off"
+      }]
+    },
+    {
+      "featureType": "administrative.province",
+      "elementType": "all",
+      "stylers": [{
+        "visibility": "off"
+      }]
+    },
+    {
+      "featureType": "landscape",
+      "elementType": "geometry",
+      "stylers": [{
+          "hue": "#ff0000"
+        },
+        {
+          "lightness": "0"
+        },
+        {
+          "saturation": "70"
+        }
+      ]
+    },
+    {
+      "featureType": "poi",
+      "elementType": "geometry",
+      "stylers": [{
+        "color": "#FFB3B3"
+      }]
+    },
+    {
+      "featureType": "poi",
+      "elementType": "labels.text.stroke",
+      "stylers": [{
+        "visibility": "off"
+      }]
+    },
+    {
+      "featureType": "road",
+      "elementType": "all", //"labels.text.stroke",
+      "stylers": [{
+        "visibility": "off"
+      }]
+    },
+    {
+      "featureType": "road.highway",
+      "elementType": "all",
+      "stylers": [{
+        "color": "#FFB3B3"
+      }]
+    },
+    {
+      "featureType": "road.arterial",
+      "elementType": "all",
+      "stylers": [{
+          "visibility": "on"
+        },
+        {
+          "color": "#ffb3b3"
+        }
+      ]
+    },
+    {
+      "featureType": "road.local",
+      "elementType": "all",
+      "stylers": [{
+        "visibility": "off"
+      }]
+    },
+    {
+      "featureType": "transit",
+      "elementType": "all",
+      "stylers": [{
+        "visibility": "off"
+      }]
+    },
+    {
+      "featureType": "transit",
+      "elementType": "labels.text.stroke",
+      "stylers": [{
+        "visibility": "off"
+      }]
+    },
+    {
+      "featureType": "water",
+      "elementType": "geometry",
+      "stylers": [{
+          "color": "#FFB3B3"
+        },
+        {
+          "lightness": 66
+        }
+      ]
+    },
+    {
+      "featureType": "water",
+      "elementType": "labels.text.stroke",
+      "stylers": [{
+        "visibility": "off"
+      }]
+    }
+  ];
+
+  lib.grey = [{
+      "featureType": "all",
+      "elementType": "labels.text.fill",
+      "stylers": [{
+          "saturation": 36
+        },
+        {
+          "color": "#000000"
+        },
+        {
+          "lightness": 40
+        }
+      ]
+    },
+    {
+      "featureType": "all",
+      "elementType": "labels.text.stroke",
+      "stylers": [{
+          "visibility": "on"
+        },
+        {
+          "color": "#000000"
+        },
+        {
+          "lightness": 16
+        }
+      ]
+    },
+    {
+      "featureType": "all",
+      "elementType": "labels.icon",
+      "stylers": [{
+        "visibility": "off"
+      }]
+    },
+    {
+      "featureType": "administrative",
+      "elementType": "geometry.fill",
+      "stylers": [{
+          "color": "#000000"
+        },
+        {
+          "lightness": 20
+        }
+      ]
+    },
+    {
+      "featureType": "administrative",
+      "elementType": "geometry.stroke",
+      "stylers": [{
+          "color": "#000000"
+        },
+        {
+          "lightness": 17
+        },
+        {
+          "weight": 1.2
+        }
+      ]
+    },
+    {
+      "featureType": "landscape",
+      "elementType": "geometry",
+      "stylers": [{
+          "color": "#000000"
+        },
+        {
+          "lightness": 20
+        }
+      ]
+    },
+    {
+      "featureType": "poi",
+      "elementType": "geometry",
+      "stylers": [{
+          "color": "#000000"
+        },
+        {
+          "lightness": 21
+        }
+      ]
+    },
+    {
+      "featureType": "road.highway",
+      "elementType": "geometry.fill",
+      "stylers": [{
+          "color": "#000000"
+        },
+        {
+          "lightness": 17
+        }
+      ]
+    },
+    {
+      "featureType": "road.highway",
+      "elementType": "geometry.stroke",
+      "stylers": [{
+          "color": "#000000"
+        },
+        {
+          "lightness": 29
+        },
+        {
+          "weight": 0.2
+        }
+      ]
+    },
+    {
+      "featureType": "road.arterial",
+      "elementType": "geometry",
+      "stylers": [{
+          "color": "#000000"
+        },
+        {
+          "lightness": 18
+        }
+      ]
+    },
+    {
+      "featureType": "road.local",
+      "elementType": "geometry",
+      "stylers": [{
+          "color": "#000000"
+        },
+        {
+          "lightness": 16
+        }
+      ]
+    },
+    {
+      "featureType": "transit",
+      "elementType": "geometry",
+      "stylers": [{
+          "color": "#000000"
+        },
+        {
+          "lightness": 19
+        }
+      ]
+    },
+    {
+      "featureType": "water",
+      "elementType": "geometry",
+      "stylers": [{
+          "color": "#000000"
+        },
+        {
+          "lightness": 17
+        }
+      ]
+    }
+  ];
+
+  map.setOptions({ styles: styles.map(style => lib[style]).reduce((a, b) => a.concat(b)) });
+  </script>
+  <style>
+  html,
+  body,
+  #map {
+    height: 100%;
+    margin: 0;
+  }
+  </style>
+</body>
+
+</html>
