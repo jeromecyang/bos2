@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>My First React Example</title>
+    <link href="https://fonts.googleapis.com/css?family=Oswald|Roboto:900" rel="stylesheet">
+  </head>
+  <body>
+    <div id="app"></div>
+
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>
+    <script type="text/babel" src="app.js"></script>
+
+    <style>
+html, body {
+  margin: 0;
+}
+
+.main {
+  position: relative;
+  width: 900px;
+  height: 900px;
+  padding: 20px 0;
+  box-sizing: border-box;
+  margin: 10px;
+}
+
+.top {
+  font-family: 'Roboto', sans-serif;
+  font-size: 72px;
+  line-height: 60px;
+  margin-bottom: 20px;
+}
+
+.top>span {
+  font-size: 24px;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
+.group {
+  display: flex;
+  height: 36px;
+}
+
+.title {
+  font-family: 'Roboto', sans-serif;
+  width: 300px;
+  text-align: right;
+  height: 36px;
+  font-size: 28px;
+  line-height: 36px;
+}
+
+.title>span {
+  font-size: 12px;
+  margin: 0 5px;
+  vertical-align: middle;
+}
+
+.bar {
+  width: 500px;
+  height: 36px;
+  border: 2px solid #fff;
+  box-sizing: border-box;
+  font-family: 'Oswald', sans-serif;
+  line-height: 36px;
+  text-align: right;
+  padding-right: 4px;
+}
+
+.percent {
+  font-family: 'Roboto', sans-serif;
+  height: 36px;
+  font-size: 28px;
+  line-height: 36px;
+  padding-left: 8px;
+}
+
+.detail {
+  font-family: 'Oswald', sans-serif;
+  width: 55px;
+  text-align: right;
+  padding-right: 8px;
+}
+
+.detail>.first {
+  font-size: 16px;
+  line-height: 22px;
+}
+
+.detail>.second {
+  font-size: 10px;
+  line-height: 8px;
+}
+
+.legend {
+  font-family: 'Roboto', sans-serif;
+  position: absolute;
+  bottom: 20px;
+  right: 10px;
+}
+
+.square {
+  height: 24px;
+  width: 24px;
+  margin-left: 8px;
+  display: inline-block;
+}
+
+    </style>
+  </body>
+</html>
